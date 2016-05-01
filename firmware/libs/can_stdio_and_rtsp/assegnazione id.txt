@@ -1,0 +1,11 @@
+                                     porta_telnet(grande) porta_telnet(piccolo)
+0x00	ZigBee2CAN (coordinatore)           nd                   nd
+0x01	ObstacleAvoidance                  6671                 6681
+0x02	MicroBrain                         6672                 6682
+0x03	MotionControl_v4                    nd                   nd
+0x04	RCServoCAN (primo)                  nd                   nd
+0x05	RCServoCAN (secondo)                nd                   --
+0x06	Lift                                nd                   nd
+0x07	Display                            6677                  --
+
+IP del raspberry: 192.168.0.102
