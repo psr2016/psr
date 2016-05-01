@@ -18,10 +18,10 @@ SOURCEFILES += can_interface.cpp
 SOURCEFILES += main.cpp
 
 # Librerie utilizzate
-include ../../2015/libs/can_stdio_and_rtsp/can_stdio_and_rtsp_endpoint.mk
-include ../../2015/libs/ecan_lib/ecan_lib.mk
-include ../../2016/libs/controllib/controllib.mk
-include ../../2015/libs/c++support/c++support.mk
+include ../libs/can_stdio_and_rtsp/can_stdio_and_rtsp_endpoint.mk
+include ../libs/ecan_lib/ecan_lib.mk
+include ../libs/controllib/controllib.mk
+include ../libs/c++support/c++support.mk
 
 # Carica regole di compilazione. Deve essere incluso dopo aver riempito l'elenco SOURCEFILES
 include ../rules.mk

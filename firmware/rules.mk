@@ -12,7 +12,7 @@ endif
 ROOTDIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
 # Ottiene il percorso degli eseguibili della toolchain
-include $(ROOTDIR)/../compile.mk
+include $(ROOTDIR)/compile.mk
 BIN := $(XC16DIR)/bin
 LIB := $(XC16DIR)/lib
 CC := $(BIN)/xc16-gcc
