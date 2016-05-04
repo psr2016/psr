@@ -27,7 +27,7 @@ CFLAGS += -omf=coff -Wall -mcpu=$(TARGET_CHIP) -mno-eds-warn -I. -I$(ROOTDIR) -n
 CXXFLAGS += $(CFLAGS) -fno-exceptions -fno-rtti -D__bool_true_and_false_are_defined
 LDSCRIPT = $(XC16DIR)/support/$(TARGET_FAMILY)/gld/p$(TARGET_CHIP).gld
 LDFLAGS += -omf=coff --local-stack -p$(TARGET_CHIP) --script $(LDSCRIPT) --report-mem --heap=512 -L$(LIB) -L$(LIB)/$(TARGET_FAMILY)
-LIBS +=  -lc -lpic30 -lp$(TARGET_CHIP) -ldsp -lfastm -lq-dsp -lq -lsol -lm
+LIBS +=  -lc -lpic30 -ldsp -lfastm -lq-dsp -lq -lsol -lm  #  -lp$(TARGET_CHIP)
 
 # Attivare per info dettagliate su memoria allocata da ciascun file sorgente
 # CFLAGS += -Wa,-ai
