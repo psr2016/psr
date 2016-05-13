@@ -48,5 +48,14 @@ class Pose : public Point {
     float m_theta;
 };
 
+class Line {
+ public:
+ Line(Point & target, Point & pointForLine);
+    float getDistance(float x, float y);
+    float getDTheta();
+ private:
+    float a, b ,c;
+};
+
 #endif
 

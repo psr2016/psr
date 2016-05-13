@@ -10,6 +10,7 @@ CAN_RTSPPORT := 6661
 SOURCEFILES += geometry.cpp
 SOURCEFILES += kinematics.cpp
 SOURCEFILES += speed_control.cpp
+SOURCEFILES += followLine.cpp
 SOURCEFILES += clocking.cpp
 SOURCEFILES += pwm.cpp
 SOURCEFILES += timers.cpp

@@ -3,6 +3,7 @@
  */
 
 #include <math.h>
+#include <stdlib.h>
 #include "geometry.h"
 
 
@@ -25,3 +26,21 @@ void Pose::global_to_local(Point & global_point, Point & robot_local)
     robot_local.y(- dx * sin_t + dy * cos_t);
 }
 
+Line::Line(Point & target, Point & pointForLine)
+{
+    a = target.y() - pointForLine.y();
+    b = target.x() - pointForLine.x();
+    c = (target.x() * pointForLine.y()) - (pointForLine.x() * target.y());
+}
+
+float Line::getDistance(float x, float y)
+{
+    float nm = abs(a * x + b * y + c );
+    float dnm = sqrt(a*a + b*b);
+    return nm/dnm;
+}
+
+float Line::getDTheta()
+{
+    return atan2(-a,b);
+}
