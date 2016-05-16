@@ -25,6 +25,12 @@ class Kinematics : public PeriodicTask {
     float speed_right() { return m_speed_right; };
     Pose & pose() { return robot_pose;};
 
+    //aggiunti da Massimiliano Portelli e Placido Russo
+    float angular_speed() { return m_angular_speed; };
+    float wheelbase() { return m_wheelbase; };
+    float angular_distance() { return m_angular_distance; };
+    void set_angular_distance(float angular_distance) { m_angular_distance = angular_distance; };
+
  private:
     float m_radius_left, m_radius_right;
     float m_wheel_factor_left, m_wheel_factor_right;
