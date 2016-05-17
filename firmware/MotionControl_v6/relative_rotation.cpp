@@ -9,23 +9,24 @@
 RelativeRotation::RelativeRotation(Kinematics & kinem, SpeedControlTask & speed_ctrl,
 float linear_accel, float linear_vmax, float linear_decel, float linear_vmin, float angular_target_range)
     : PositionControl(kinem, speed_ctrl),
-    m_linear_vmin(linear_vmin), m_angular_next_speed(0), m_angular_target(0), m_target_reached(true)
+    m_linear_accel(0), m_linear_vmax(0), m_linear_decel(0), m_linear_vmin(linear_vmin),
+    m_angular_next_speed(0), m_angular_target(0), m_target_reached(true)
 {
-    //trasformazione da lineare ad angolare
-    float wheelbase = m_kinematics.wheelbase();
-    m_angular_accel = 2*linear_accel / wheelbase; //linear_accel = accelerazione singola ruota
-    m_angular_decel = 2*linear_decel / wheelbase; //linear_decel = decelerazione singola ruota
-    m_angular_vmax = 2*linear_vmax / wheelbase; //linear_vmax = velocità massima singola ruota
-
     //conversione da gradi a radianti
     m_angular_target_range = angular_target_range*PI/180;
-
+    
     m_angular_accel_step = m_angular_accel * m_real_time_period;
     m_angular_decel_distance = (m_angular_vmax * m_angular_vmax) / (2 * m_angular_decel);
 }
 
 void RelativeRotation::set_rotation_target(float angular_target)
 {
+    //trasformazione da lineare ad angolare
+    float wheelbase = m_kinematics.wheelbase();
+    m_angular_accel = 2*m_linear_accel / wheelbase; //linear_accel = accelerazione singola ruota
+    m_angular_decel = 2*m_linear_decel / wheelbase; //linear_decel = decelerazione singola ruota
+    m_angular_vmax = 2*m_linear_vmax / wheelbase; //linear_vmax = velocità massima singola ruota
+
     //conversione da gradi a radianti
     m_angular_target = angular_target*PI/180;
     m_kinematics.set_angular_distance(0);
@@ -87,7 +88,7 @@ void RelativeRotation::run()
     //sotto m_linear_vmin la ruota non gira
     if (wheel_speed < m_linear_vmin) wheel_speed = m_linear_vmin;
 
-    wheel_speed = s * wheel_speed;
+    wheel_speed = s*wheel_speed;
 
     //verso di rotazione antiorario
     m_speed_control.set_targets(-wheel_speed, wheel_speed); //velocità ruota sinistra e ruota destra

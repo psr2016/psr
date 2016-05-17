@@ -19,12 +19,16 @@ class RelativeRotation : public PositionControl {
     void run();
 
  protected:
+    float m_linear_accel;
+    float m_linear_vmax;
+    float m_linear_decel;
+    float m_linear_vmin;
+
     float m_angular_accel;
     float m_angular_accel_step;
     float m_angular_vmax;
     float m_angular_decel;
     float m_angular_decel_distance;
-    float m_linear_vmin;
     float m_angular_next_speed;
 
     float m_angular_target; //aggiornato in set_rotation_target()
