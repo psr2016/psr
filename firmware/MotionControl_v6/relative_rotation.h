@@ -32,4 +32,6 @@ class RelativeRotation : public PositionControl {
     bool m_target_reached;
 };
 
+extern RelativeRotation relative_rotation;
+
 #endif

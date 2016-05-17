@@ -19,7 +19,7 @@ float linear_accel, float linear_vmax, float linear_decel, float linear_vmin, fl
 
     //conversione da gradi a radianti
     m_angular_target_range = angular_target_range*PI/180;
-    
+
     m_angular_accel_step = m_angular_accel * m_real_time_period;
     m_angular_decel_distance = (m_angular_vmax * m_angular_vmax) / (2 * m_angular_decel);
 }
@@ -82,10 +82,12 @@ void RelativeRotation::run()
     //                2*wheel_speed                                angular_speed * wheelbase
     //angular_speed = -------------        =>        wheel_speed = -------------------------
     //                  wheelbase                                              2
-    float wheel_speed = s*m_angular_next_speed*m_kinematics.wheelbase()/2; // wheel_speed = right_speed
+    float wheel_speed = m_angular_next_speed*m_kinematics.wheelbase()/2; // wheel_speed = right_speed
 
     //sotto m_linear_vmin la ruota non gira
     if (wheel_speed < m_linear_vmin) wheel_speed = m_linear_vmin;
+
+    wheel_speed = s * wheel_speed;
 
     //verso di rotazione antiorario
     m_speed_control.set_targets(-wheel_speed, wheel_speed); //velocità ruota sinistra e ruota destra

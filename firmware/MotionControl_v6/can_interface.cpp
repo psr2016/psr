@@ -6,6 +6,7 @@
 #include "can_interface.h"
 #include "time_defines.h"
 #include "canstdio_endpoint.h"
+#include "relative_rotation.h"
 #include "gpio.h"
 
 extern CanPoseSender  can_pose_sender;
@@ -92,6 +93,7 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
 
     case MOTION_COMMAND_STOP_AND_FREE:
         m_speed_controller.off();
+        relative_rotation.off();
         // if (obstacle_detected == false)
         // {
         //     robot_pos.position_control_state = CONTROL_OFF;
@@ -138,6 +140,15 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
             m_kinematics.pose().y(p->y);
             m_kinematics.pose().theta(TO_RADIANS(p->deg100 / 100.0));
         }
+        break;
+
+    case MOTION_COMMAND_ROTATE_RELATIVE:
+        //if (obstacle_detected == false)
+        //{
+            t_command_rotate * p =  (t_command_rotate *)m;
+            relative_rotation.set_rotation_target(p->degrees);
+            relative_rotation.on();
+            //}
         break;
 
     }
