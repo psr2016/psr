@@ -23,19 +23,23 @@ CircularRotation::CircularRotation(Kinematics & kinem, SpeedControlTask & speed_
 
 void CircularRotation::set_rotation_target(float angular_target, float radius)
 {
-    //Metà della distanza tra le ruote
+	//conversione da gradi a radianti
+    m_angular_target = TO_RADIANS(angular_target);
+	
+	//Metà della distanza tra le ruote
     float half_wheelbase = m_kinematics.wheelbase() / 2;
-
+    
     //Set raggi
-    if (radius < 0)
+    if (radius > 0) //Si ruota verso sx
 	{
             m_radius_left = fabs(radius - half_wheelbase);
             m_radius_right = fabs(radius + half_wheelbase);
 	}
-    else
+    else //Si ruota verso dx
 	{
-            m_radius_left = fabs(radius + half_wheelbase);
-            m_radius_right = fabs(radius - half_wheelbase);
+            m_radius_left = fabs(radius - half_wheelbase);
+            m_radius_right = fabs(radius + half_wheelbase);
+            m_angular_target=-m_angular_target;
 	}
 
     //Trasformazione da lineare ad angolare
@@ -47,8 +51,7 @@ void CircularRotation::set_rotation_target(float angular_target, float radius)
     m_angular_accel_step = m_angular_accel * m_real_time_period;
     m_angular_decel_distance = (m_angular_vmax * m_angular_vmax) / (2 * m_angular_decel);
 
-    //conversione da gradi a radianti
-    m_angular_target = TO_RADIANS(angular_target);
+    
     //Distanza angolare iniziale posta a 0
     m_kinematics.set_angular_distance(0);
     m_target_reached = false;
