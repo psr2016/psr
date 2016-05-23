@@ -16,8 +16,10 @@ SOURCEFILES += pwm.cpp
 SOURCEFILES += timers.cpp
 SOURCEFILES += qei.cpp
 SOURCEFILES += can_interface.cpp
-SOURCEFILES += main.cpp
 SOURCEFILES += relative_rotation.cpp
+SOURCEFILES += circ_rotation.cpp
+SOURCEFILES += main.cpp
+
 
 # Librerie utilizzate
 include ../libs/can_stdio_and_rtsp/can_stdio_and_rtsp_endpoint.mk
