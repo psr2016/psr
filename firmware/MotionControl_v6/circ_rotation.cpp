@@ -7,39 +7,48 @@
 #include <math.h>
 
 CircularRotation::CircularRotation(Kinematics & kinem, SpeedControlTask & speed_ctrl,
-float linear_accel, float linear_vmax, float linear_decel, float linear_vmin, float angular_target_range, float radius)
-    : PositionControl(kinem, speed_ctrl), m_linear_vmin(linear_vmin),
-    m_angular_next_speed(0), m_angular_target(0), m_target_reached(true)
+float linear_accel, float linear_vmax, float linear_decel, float linear_vmin,float angular_target_range) :
+    	PositionControl(kinem, speed_ctrl)
 {
-	 //trasformazione da lineare ad angolare
-    m_angular_accel = linear_accel / radius; //linear_accel = accelerazione punto centrale
-    m_angular_decel = linear_decel / radius; //linear_decel = decelerazione punto centrale
-    m_angular_vmax = linear_vmax / radius; //linear_vmax = velocità massima punto centrale
-
-    //conversione da gradi a radianti
+	//Set acc e vel
+	m_linear_accel=linear_accel;
+	m_linear_decel=linear_decel;
+    m_linear_vmax=linear_vmax;
+    m_linear_vmin=linear_vmin;
+    
+    //Set grado di tolleranza
     m_angular_target_range = TO_RADIANS(angular_target_range);
-
-	//Istruzioni come in position_controller.cpp
-    m_angular_accel_step = m_angular_accel * m_real_time_period;
-    m_angular_decel_distance = (m_angular_vmax * m_angular_vmax) / (2 * m_angular_decel);
 }
 
 void CircularRotation::set_rotation_target(float angular_target, float radius)
 {
+	//Metà della distanza tra le ruote
 	float half_wheelbase = m_kinematics.wheelbase() / 2;
+	
+	//Set raggi
 	if (radius < 0)
 	{
-		m_radius_left = radius - half_wheelbase;
-		m_radius_right = radius + half_wheelbase;
+		m_radius_left = abs(radius - half_wheelbase);
+		m_radius_right = abs(radius + half_wheelbase);
 	}
 	else
 	{
-		m_radius_left = radius + half_wheelbase;
-		m_radius_right = radius - half_wheelbase;
+		m_radius_left = abs(radius + half_wheelbase);
+		m_radius_right = abs(radius - half_wheelbase);
 	}
-		
+	
+	//Trasformazione da lineare ad angolare
+    m_angular_accel = m_linear_accel / radius; //linear_accel = accelerazione punto centrale
+    m_angular_decel = m_linear_decel / radius; //linear_decel = decelerazione punto centrale
+    m_angular_vmax = m_linear_vmax / radius; //linear_vmax = velocità massima punto centrale
+
+	//Step
+	m_angular_accel_step = m_angular_accel * m_real_time_period;
+    m_angular_decel_distance = (m_angular_vmax * m_angular_vmax) / (2 * m_angular_decel);
+	
 	//conversione da gradi a radianti
 	m_angular_target = TO_RADIANS(angular_target);
+	//Distanza angolare iniziale posta a 0
 	m_kinematics.set_angular_distance(0);
 	m_target_reached = false;
 }
@@ -57,9 +66,9 @@ void CircularRotation::run()
     }
     else
         s = 1;
-
+        //Distanza da raggiungere minore della soglia
     if (distance <= m_angular_target_range) {
-        m_speed_control.set_targets(0, 0);
+        m_speed_control.set_targets(0, 0); //Ferma il robot
         m_target_reached = true;
         return;
     }
@@ -67,11 +76,11 @@ void CircularRotation::run()
     float angular_speed = m_kinematics.angular_speed();
 
     if (distance < m_angular_decel_distance) {
-        //fase 3
-        //velocità attesa della frenata
+        //Fase 3
+        //Velocità attesa della frenata
         float expected_angular_speed = sqrt(m_angular_vmax * m_angular_vmax - 2 * m_angular_decel * (m_angular_decel_distance - distance));
         if (expected_angular_speed > fabs(angular_speed)) {
-            // la vel da raggiungere risulta MAGGIORE della vel corrente
+            // La vel da raggiungere risulta MAGGIORE della vel corrente
             // questo vuol dire che siamo ancora nella fase di accelerazione
             // pertanto acceleriamo
             m_angular_next_speed += m_angular_accel_step;
@@ -83,10 +92,10 @@ void CircularRotation::run()
         }
     }
     else {
-        //fase 1
+        //Fase 1
         if (m_angular_next_speed < m_angular_vmax) {
             m_angular_next_speed += m_angular_accel_step;
-            //fase 2
+            //Fase 2
             if (m_angular_next_speed > m_angular_vmax) m_angular_next_speed = m_angular_vmax;
         }
     }
@@ -108,15 +117,15 @@ void CircularRotation::run()
     
     float wheel_speed_right = m_angular_next_speed*(m_radius_right);
 
-    //sotto m_linear_vmin la ruota non gira
+    //Sotto m_linear_vmin la ruota non gira
     if (wheel_speed_left < m_linear_vmin) wheel_speed_left = m_linear_vmin;
 	if (wheel_speed_right < m_linear_vmin) wheel_speed_right = m_linear_vmin;
 
-	//correzione senso di rotazione
+	//Correzione senso di rotazione
     wheel_speed_left = s * wheel_speed_left;
     wheel_speed_right = s * wheel_speed_right;
 
-    //verso di rotazione antiorario
+    //Verso di rotazione antiorario
     m_speed_control.set_targets(wheel_speed_left, wheel_speed_right); //velocità ruota sinistra e ruota destra
     
 }
