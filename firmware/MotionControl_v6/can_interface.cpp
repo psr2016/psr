@@ -7,6 +7,7 @@
 #include "time_defines.h"
 #include "canstdio_endpoint.h"
 #include "relative_rotation.h"
+#include "circ_rotation.h"
 #include "gpio.h"
 
 extern CanPoseSender  can_pose_sender;
@@ -144,13 +145,21 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
 
     case MOTION_COMMAND_ROTATE_RELATIVE:
         //if (obstacle_detected == false)
-        //{
+        {
             t_command_rotate * p =  (t_command_rotate *)m;
             relative_rotation.set_rotation_target(p->degrees);
             relative_rotation.on();
-            //}
+        }
         break;
 
+    case MOTION_COMMAND_ROTATE_CIRCULAR:
+        //if (obstacle_detected == false)
+        {
+            t_command_rotate_circular * p =  (t_command_rotate_circular *)m;
+            circular_rotation.set_rotation_target(p->degrees/10.0, p->x);
+            circular_rotation.on();
+        }
+        break;
     }
 }
 

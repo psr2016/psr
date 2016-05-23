@@ -16,6 +16,7 @@
 #include "timers.h"
 #include "gpio.h"
 #include "relative_rotation.h"
+#include "circ_rotation.h"
 
 void initialize_peripherals()
 {
@@ -57,6 +58,7 @@ CanCommandReceiver  can_receiver(kinematics, speed_control);
 CanPoseSender  can_pose_sender(current_robot_pose);
 CanSpeedSender  can_speed_sender(speed_control);
 RelativeRotation relative_rotation(kinematics, speed_control, 600, 600, 600, 20, 0.5);
+CircularRotation circular_rotation(kinematics, speed_control, 600, 600, 600, 20, 0.5);
 
 int main()
 {
