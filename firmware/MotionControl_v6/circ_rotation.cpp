@@ -40,7 +40,7 @@ void CircularRotation::set_rotation_target(float angular_target, float radius)
 	{
             m_radius_left = fabs(radius + half_wheelbase);
             m_radius_right = fabs(radius - half_wheelbase);
-            m_angular_target = - m_angular_target
+            m_angular_target = - m_angular_target;
 	}
 
     //Trasformazione da lineare ad angolare
