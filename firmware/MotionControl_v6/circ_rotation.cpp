@@ -23,29 +23,30 @@ CircularRotation::CircularRotation(Kinematics & kinem, SpeedControlTask & speed_
 
 void CircularRotation::set_rotation_target(float angular_target, float radius)
 {
+	
 	//conversione da gradi a radianti
     m_angular_target = TO_RADIANS(angular_target);
-	
-	//Metà della distanza tra le ruote
-    float half_wheelbase = m_kinematics.wheelbase() / 2;
     
+    //Metà della distanza tra le ruote
+    float half_wheelbase = m_kinematics.wheelbase() / 2;
+
     //Set raggi
-    if (radius > 0) //Si ruota verso sx
+    if (radius < 0) //Si ruota verso sx
 	{
             m_radius_left = fabs(radius - half_wheelbase);
             m_radius_right = fabs(radius + half_wheelbase);
 	}
     else //Si ruota verso dx
 	{
-            m_radius_left = fabs(radius - half_wheelbase);
-            m_radius_right = fabs(radius + half_wheelbase);
-            m_angular_target=-m_angular_target;
+            m_radius_left = fabs(radius + half_wheelbase);
+            m_radius_right = fabs(radius - half_wheelbase);
+            m_angular_target = - m_angular_target
 	}
 
     //Trasformazione da lineare ad angolare
-    m_angular_accel = m_linear_accel / radius; //linear_accel = accelerazione punto centrale
-    m_angular_decel = m_linear_decel / radius; //linear_decel = decelerazione punto centrale
-    m_angular_vmax = m_linear_vmax / radius; //linear_vmax = velocità massima punto centrale
+    m_angular_accel = m_linear_accel / fabs(radius); //linear_accel = accelerazione punto centrale
+    m_angular_decel = m_linear_decel / fabs(radius); //linear_decel = decelerazione punto centrale
+    m_angular_vmax = m_linear_vmax / fabs(radius); //linear_vmax = velocità massima punto centrale
 
     //Step
     m_angular_accel_step = m_angular_accel * m_real_time_period;
