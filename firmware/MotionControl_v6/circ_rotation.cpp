@@ -31,7 +31,7 @@ void CircularRotation::set_rotation_target(float angular_target, float radius)
     float half_wheelbase = m_kinematics.wheelbase() / 2;
 
     //Set raggi
-    if (radius < 0) //Si ruota verso sx
+    if (radius > 0) //Si ruota verso sx
 	{
             m_radius_left = fabs(radius - half_wheelbase);
             m_radius_right = fabs(radius + half_wheelbase);
