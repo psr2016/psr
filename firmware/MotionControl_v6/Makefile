@@ -17,6 +17,7 @@ SOURCEFILES += timers.cpp
 SOURCEFILES += qei.cpp
 SOURCEFILES += can_interface.cpp
 SOURCEFILES += relative_rotation.cpp
+SOURCEFILES += absolute_rotation.cpp
 SOURCEFILES += circ_rotation.cpp
 SOURCEFILES += main.cpp
 
