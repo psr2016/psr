@@ -7,6 +7,7 @@
 #include "time_defines.h"
 #include "canstdio_endpoint.h"
 #include "relative_rotation.h"
+#include "absolute_rotation.h"
 #include "circ_rotation.h"
 #include "gpio.h"
 
@@ -149,6 +150,15 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
             t_command_rotate * p =  (t_command_rotate *)m;
             relative_rotation.set_rotation_target(p->degrees);
             relative_rotation.on();
+        }
+        break;
+
+    case MOTION_COMMAND_ROTATE_ABSOLUTE:
+        //if (obstacle_detected == false)
+        {
+            t_command_rotate * p =  (t_command_rotate *)m;
+            absolute_rotation.evaluate_absolute_rotation(p->degrees);
+            absolute_rotation.on();
         }
         break;
 
