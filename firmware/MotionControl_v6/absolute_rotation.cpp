@@ -8,26 +8,33 @@
 
 AbsoluteRotation::AbsoluteRotation(Kinematics & kinem, SpeedControlTask & speed_ctrl,
 float lin_accel, float lin_vmax, float lin_decel, float lin_vmin, float angular_range)
-    : PositionControl(kinem, speed_ctrl),
-    m_lin_accel(0), m_lin_vmax(0), m_lin_decel(0), m_lin_vmin(lin_vmin),
-    m_angular_next_speed(0), m_target_angle(0), m_target_reached(true)
+    : PositionControl(kinem, speed_ctrl)
 {
+	//settiamo accel e velocità 
+    m_lin_accel = lin_accel;
+    m_lin_vmax = lin_vmax;
+    m_lin_decel = lin_decel;
+    m_lin_vmin = lin_vmin;
+    
+    
     
     m_angular_range = angular_range*PI/180; //soglia 
-    
-    m_angular_accel_increment = m_angular_accel * m_real_time_period; 
-    m_angular_decel_distance = (m_angular_vmax * m_angular_vmax) / (2 * m_angular_decel);
-    
     
 }
 
 void AbsoluteRotation::evaluate_absolute_rotation(float target_angle)
 {
-	//da lineare ad angolare
+	
+    //da lineare ad angolare
     float wheelbase = m_kinematics.wheelbase(); //metodo implementato da Russo-Portelli
     m_angular_accel = 2*m_lin_accel / wheelbase;  // alpha= at/L/2 => alpha = 2at/L dove alpha= accel ang e at=accel lin
     m_angular_decel = 2*m_lin_decel / wheelbase; 
     m_angular_vmax = 2*m_lin_vmax / wheelbase; 
+    
+    m_angular_accel_increment = m_angular_accel * m_real_time_period; //step
+    m_angular_decel_distance = (m_angular_vmax * m_angular_vmax) / (2 * m_angular_decel);
+	
+	
     
     //da gradi a radianti
     m_target_angle = target_angle*PI/180;
@@ -38,8 +45,6 @@ void AbsoluteRotation::evaluate_absolute_rotation(float target_angle)
 
 void AbsoluteRotation::run()
 {
-	if (m_target_reached) return;
-	//m_current_angle = m_kinematics.new_theta();
 	
 	if (m_target_reached) return;
 
