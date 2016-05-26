@@ -7,7 +7,7 @@
 #include <math.h>
 
 AbsoluteRotation::AbsoluteRotation(Kinematics & kinem, SpeedControlTask & speed_ctrl,
-float lin_accel, float lin_vmax, float lin_decel, float lin_vmin, float target_angle, float angular_range)
+float lin_accel, float lin_vmax, float lin_decel, float lin_vmin, float angular_range)
     : PositionControl(kinem, speed_ctrl),
     m_lin_accel(0), m_lin_vmax(0), m_lin_decel(0), m_lin_vmin(lin_vmin),
     m_angular_next_speed(0), m_target_angle(0), m_target_reached(true)
@@ -15,8 +15,8 @@ float lin_accel, float lin_vmax, float lin_decel, float lin_vmin, float target_a
     
     m_angular_range = angular_range*PI/180; //soglia 
     
-    m_angular_accel_increment = m_lin_accel * m_real_time_period; 
-    m_angular_decel_distance = (m_lin_vmax * m_lin_vmax) / (2 * m_lin_decel);
+    m_angular_accel_increment = m_angular_accel * m_real_time_period; 
+    m_angular_decel_distance = (m_angular_vmax * m_angular_vmax) / (2 * m_angular_decel);
     
     
 }

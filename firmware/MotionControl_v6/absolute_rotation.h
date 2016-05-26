@@ -12,7 +12,7 @@
 
 class AbsoluteRotation : public PositionControl {
  public: 
-	AbsoluteRotation(Kinematics & kinem, SpeedControlTask & speed_ctrl, float lin_accel, float lin_vmax, float lin_decel, float lin_vmin, float target_angle, float angular_range);
+	AbsoluteRotation(Kinematics & kinem, SpeedControlTask & speed_ctrl, float lin_accel, float lin_vmax, float lin_decel, float lin_vmin, float angular_range);
 	
 	bool target_reached() { return m_target_reached; };
 	void evaluate_absolute_rotation(float target_angle); 
