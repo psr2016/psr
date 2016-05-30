@@ -1,0 +1,6 @@
+build//MotionControl_v6/pwm.o: ../MotionControl_v6/pwm.cpp \
+ ../MotionControl_v6/defines.h ../MotionControl_v6/pwm.h
+
+../MotionControl_v6/defines.h:
+
+../MotionControl_v6/pwm.h:

@@ -1,0 +1,6 @@
+build//libs/controllib/low_pass.o: ../libs/controllib/low_pass.cpp \
+ ../libs/controllib/low_pass.h ../libs/controllib/filter.h
+
+../libs/controllib/low_pass.h:
+
+../libs/controllib/filter.h:

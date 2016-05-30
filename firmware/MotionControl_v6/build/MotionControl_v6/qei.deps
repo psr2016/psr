@@ -1,0 +1,4 @@
+build//MotionControl_v6/qei.o: ../MotionControl_v6/qei.cpp \
+ ../MotionControl_v6/defines.h
+
+../MotionControl_v6/defines.h:

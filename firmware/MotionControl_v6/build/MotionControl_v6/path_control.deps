@@ -1,0 +1,32 @@
+build//MotionControl_v6/path_control.o: \
+ ../MotionControl_v6/path_control.cpp ../MotionControl_v6/path_control.h \
+ ../libs/controllib/periodic_task.h ../MotionControl_v6/speed_control.h \
+ ../libs/controllib/pid.h ../libs/controllib/low_pass.h \
+ ../libs/controllib/filter.h ../MotionControl_v6/kinematics.h \
+ ../MotionControl_v6/geometry.h ../MotionControl_v6/time_defines.h \
+ ../MotionControl_v6/timers.h ../MotionControl_v6/pwm.h \
+ ../MotionControl_v6/position_control.h
+
+../MotionControl_v6/path_control.h:
+
+../libs/controllib/periodic_task.h:
+
+../MotionControl_v6/speed_control.h:
+
+../libs/controllib/pid.h:
+
+../libs/controllib/low_pass.h:
+
+../libs/controllib/filter.h:
+
+../MotionControl_v6/kinematics.h:
+
+../MotionControl_v6/geometry.h:
+
+../MotionControl_v6/time_defines.h:
+
+../MotionControl_v6/timers.h:
+
+../MotionControl_v6/pwm.h:
+
+../MotionControl_v6/position_control.h:

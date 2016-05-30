@@ -1,0 +1,19 @@
+build//libs/can_stdio_and_rtsp/canstdio_endpoint.o: \
+ ../libs/can_stdio_and_rtsp/canstdio_endpoint.c defines.h \
+ ../bus_objects.h ../libs/can_stdio_and_rtsp/canrtsp_endpoint.h \
+ ../libs/can_stdio_and_rtsp/canstdio_endpoint.h \
+ ../libs/ecan_lib/ecan_lib.h simulator_interface.h defines.h
+
+defines.h:
+
+../bus_objects.h:
+
+../libs/can_stdio_and_rtsp/canrtsp_endpoint.h:
+
+../libs/can_stdio_and_rtsp/canstdio_endpoint.h:
+
+../libs/ecan_lib/ecan_lib.h:
+
+simulator_interface.h:
+
+defines.h:

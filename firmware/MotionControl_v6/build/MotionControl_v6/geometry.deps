@@ -1,0 +1,4 @@
+build//MotionControl_v6/geometry.o: ../MotionControl_v6/geometry.cpp \
+ ../MotionControl_v6/geometry.h
+
+../MotionControl_v6/geometry.h:

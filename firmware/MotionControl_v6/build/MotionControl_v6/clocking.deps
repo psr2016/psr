@@ -1,0 +1,6 @@
+build//MotionControl_v6/clocking.o: ../MotionControl_v6/clocking.cpp \
+ ../MotionControl_v6/defines.h ../MotionControl_v6/clocking.h
+
+../MotionControl_v6/defines.h:
+
+../MotionControl_v6/clocking.h:

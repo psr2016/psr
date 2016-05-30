@@ -1,0 +1,2 @@
+build//libs/c++support/minilibstdc++.o: \
+ ../libs/c++support/minilibstdc++.cpp
