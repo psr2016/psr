@@ -23,6 +23,7 @@ CircularRotation::CircularRotation(Kinematics & kinem, SpeedControlTask & speed_
 
 void CircularRotation::set_rotation_target(float angular_target, float radius)
 {
+	m_radius=radius;
 	
 	//conversione da gradi a radianti
     m_angular_target = TO_RADIANS(angular_target);
@@ -33,7 +34,7 @@ void CircularRotation::set_rotation_target(float angular_target, float radius)
     //Set raggi
     m_radius_left = fabs(radius - half_wheelbase);
     m_radius_right = fabs(radius + half_wheelbase);
-
+	
     //Trasformazione da lineare ad angolare
     m_angular_accel = m_linear_accel / fabs(radius); //linear_accel = accelerazione punto centrale
     m_angular_decel = m_linear_decel / fabs(radius); //linear_decel = decelerazione punto centrale
@@ -42,7 +43,6 @@ void CircularRotation::set_rotation_target(float angular_target, float radius)
     //Step
     m_angular_accel_step = m_angular_accel * m_real_time_period;
     m_angular_decel_distance = (m_angular_vmax * m_angular_vmax) / (2 * m_angular_decel);
-
     
     //Distanza angolare iniziale posta a 0
     m_kinematics.set_angular_distance(0);
@@ -53,7 +53,15 @@ void CircularRotation::run()
 {
 	if (m_target_reached) return;
 
-    float distance = m_angular_target - m_kinematics.angular_distance();
+	/*distance = Distanza angolare corrente dal target
+	 * m_angular_target = Distanza angolare da raggiungere
+	 * m_kinematics.angular_distance() = Distanza attualmente percorsa
+    */
+    
+    float angular_fixed_distance = m_kinematics.angular_distance();
+    if (m_radius<0) angular_fixed_distance = -angular_fixed_distance;
+    
+    float distance = m_angular_target - angular_fixed_distance;
     float s;
 
     if (distance < 0) {
@@ -62,7 +70,8 @@ void CircularRotation::run()
     }
     else
         s = 1;
-        //Distanza da raggiungere minore della soglia
+        
+    //Distanza da raggiungere minore della soglia
     if (distance <= m_angular_target_range) {
         m_speed_control.set_targets(0, 0); //Ferma il robot
         m_target_reached = true;
