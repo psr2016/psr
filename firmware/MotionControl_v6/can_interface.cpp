@@ -6,9 +6,7 @@
 #include "can_interface.h"
 #include "time_defines.h"
 #include "canstdio_endpoint.h"
-#include "relative_rotation.h"
-#include "absolute_rotation.h"
-#include "circ_rotation.h"
+#include "path_control.h"
 #include "gpio.h"
 
 extern CanPoseSender  can_pose_sender;
@@ -148,8 +146,7 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
         //if (obstacle_detected == false)
         {
             t_command_rotate * p =  (t_command_rotate *)m;
-            relative_rotation.set_rotation_target(p->degrees);
-            relative_rotation.on();
+            path_control.addRelRotation(p->degrees);
         }
         break;
 
@@ -157,8 +154,7 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
         //if (obstacle_detected == false)
         {
             t_command_rotate * p =  (t_command_rotate *)m;
-            absolute_rotation.evaluate_absolute_rotation(p->degrees);
-            absolute_rotation.on();
+            path_control.addAbsRotation(p->degrees);
         }
         break;
 
@@ -166,8 +162,7 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
         //if (obstacle_detected == false)
         {
             t_command_rotate_circular * p =  (t_command_rotate_circular *)m;
-            circular_rotation.set_rotation_target(p->degrees/10.0, p->x);
-            circular_rotation.on();
+            path_contro.addCircularRotation(p->degrees/10.0, p->x);
         }
         break;
     }

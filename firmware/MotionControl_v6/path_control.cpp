@@ -101,8 +101,8 @@ void PathControl::setCommand(int type)
 {
 	switch(operation[m_executionIndex].typeOfCommand)
 	{
-		case ABSOLUTE_ROTATION: 
-			//comando di rotazione assoluta richiamare il metodo 
+		case ABSOLUTE_ROTATION:
+			//comando di rotazione assoluta richiamare il metodo
 			//evaluate_absolute_rotation(float target_angle)
 			absolute_rotation.evaluate_absolute_rotation(operation[m_executionIndex].theta);
 			current_command= &absolute_rotation;
@@ -140,6 +140,9 @@ bool PathControl::isStop()
 			return true;
 		}
 	}
+        else
+            m_block_cnt = 0;
+
 	return false;
 }
 

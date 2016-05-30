@@ -1,6 +1,6 @@
 
 #ifndef __PATHCONTROL_H
-#define __PATHCONTROL_H 
+#define __PATHCONTROL_H
 
 #include "periodic_task.h"
 #include "speed_control.h"
@@ -48,5 +48,7 @@ private:
 	PeriodicTask * current_command;
 	int m_block_cnt;
 };
+
+extern PathControl path_control;
 
 #endif
