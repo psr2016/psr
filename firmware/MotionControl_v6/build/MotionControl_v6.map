@@ -172,11 +172,11 @@ section                    address   length (PC units)   length (bytes) (dec)
 .text                        0x200              0x1a28          0x273c  (10044)
 libmxconst                  0x1c28               0x1e4           0x2d6  (726)
 .const                      0x1e0c               0x164           0x216  (534)
-.text                       0x1f70              0x4154          0x61fe  (25086)
-.dinit                      0x60c4                0x60            0x90  (144)
-.text                       0x6124                0x62            0x93  (147)
+.text                       0x1f70              0x4346          0x64e9  (25833)
+.dinit                      0x62b6                0x60            0x90  (144)
+.text                       0x6316                0x62            0x93  (147)
 
-                     Total program memory used (bytes):         0x8f49  (36681) 28%
+                     Total program memory used (bytes):         0x9234  (37428) 29%
 
 
 Data Memory  [Origin = 0x800, Length = 0x4000]
@@ -379,90 +379,91 @@ External Symbols in Program Memory (by address):
                   0x003adc                  _ecan_set_fifo_start_area
                   0x003af8                  _ecan_configure_tx_buffer
                   0x003bf0                  _ecan_config
-                  0x003d22                  __ZN16RelativeRotationC2ER10KinematicsR16SpeedControlTaskfffff
-                  0x003d22                  __ZN16RelativeRotationC1ER10KinematicsR16SpeedControlTaskfffff
-                  0x003dd8                  __ZN16RelativeRotation19set_rotation_targetEf
-                  0x003e4c                  __ZN16RelativeRotation3runEv
-                  0x00414c                  __ZN16AbsoluteRotationC1ER10KinematicsR16SpeedControlTaskfffff
-                  0x00414c                  __ZN16AbsoluteRotationC2ER10KinematicsR16SpeedControlTaskfffff
-                  0x0041ac                  __ZN16AbsoluteRotation26evaluate_absolute_rotationEf
-                  0x00425e                  __ZN16AbsoluteRotation3runEv
-                  0x00455e                  __ZN10KinematicsC1ER4Poseffff
-                  0x00455e                  __ZN10KinematicsC2ER4Poseffff
-                  0x0045be                  __ZN10Kinematics15set_radius_leftEf
-                  0x0045f4                  __ZN10Kinematics16set_radius_rightEf
-                  0x00462a                  __ZN10Kinematics3runEv
-                  0x0048ca                  __ZN3PidC1Effffff
-                  0x0048ca                  __ZN3PidC2Effffff
-                  0x004934                  __ZN3PidC1Ev
-                  0x004934                  __ZN3PidC2Ev
-                  0x004984                  __ZN3PidD1Ev
-                  0x004984                  __ZN3PidD2Ev
-                  0x004992                  __ZN3Pid4initEffffff
-                  0x0049ee                  __ZN3Pid10set_paramsEffff
-                  0x004a2c                  __ZN3Pid23set_derivative_low_passEf
-                  0x004a42                  __ZN3Pid5resetEv
-                  0x004a68                  __ZN3Pid19derivative_low_passEf
-                  0x004a86                  __ZN3Pid10derivativeEff
-                  0x004aa4                  __ZN3Pid8evaluateEff
-                  0x004ace                  __ZN3Pid20evaluate_using_errorEfff
-                  0x004c34                  __ZN17PidDerivateOutput10derivativeEff
-                  0x004d36                  __ZN10FollowLine14target_reachedEv
-                  0x004d40                  __ZN10FollowLine3runEv
-                  0x004dae                  __ZN10FollowLine20evaluateAngularSpeedEv
-                  0x004e18                  __ZN10FollowLine19evaluateLinearSpeedER5PointR4Posef
-                  0x00500c                  __ZN5Point11getDistanceERS_
-                  0x00504e                  __ZN4Pose15local_to_globalER5PointS1_
-                  0x0050cc                  __ZN4Pose15global_to_localER5PointS1_
-                  0x00515c                  __ZN4LineC2ER5PointS1_
-                  0x00515c                  __ZN4LineC1ER5PointS1_
-                  0x0051c8                  __ZN4Line11getDistanceEff
-                  0x005240                  __ZN4Line9getDThetaEv
-                  0x00531e                  __ZN11PathControlC1ER10KinematicsR16SpeedControlTaski
-                  0x00531e                  __ZN11PathControlC2ER10KinematicsR16SpeedControlTaski
-                  0x005358                  __ZN11PathControl3runEv
-                  0x00540c                  __ZN11PathControl10addForwardEi
-                  0x005416                  __ZN11PathControl12addGoToPointEii
-                  0x005422                  __ZN11PathControl14addAbsRotationEi
-                  0x00542c                  __ZN11PathControl14addRelRotationEi
-                  0x005436                  __ZN11PathControl10setCommandEi
-                  0x005440                  __ZN11PathControl6isStopEv
-                  0x0054be                  __ZN11PathControl5abortEv
-                  0x005510                  __ZN16Chebyshev4FilterC1Efffffffffff
-                  0x005510                  __ZN16Chebyshev4FilterC2Efffffffffff
-                  0x0055d6                  __ZN16Chebyshev4Filter5applyEf
-                  0x00579c                  __Z22initialize_peripheralsv
-                  0x0057c2                  __Z13flash_at_bootv
-                  0x0057ee                  _main
-                  0x005928                  _canstdio_endpoint_process_can_frame
-                  0x0059a6                  _canstdio_is_connected
-                  0x0059ae                  _canstdio_getcharacter
-                  0x005a5a                  _canstdio_is_input_available
-                  0x005a62                  _canstdio_send
-                  0x005b72                  __ZN16SpeedControlTaskC1ER10Kinematics
-                  0x005b72                  __ZN16SpeedControlTaskC2ER10Kinematics
-                  0x005c08                  __ZN16SpeedControlTask10set_paramsEfff
-                  0x005c54                  __ZN16SpeedControlTask3offEb
-                  0x005c86                  __ZN16SpeedControlTask3runEv
-                  0x005d14                  __ZN12PeriodicTaskC1EPKcifib
-                  0x005d14                  __ZN12PeriodicTaskC2EPKcifib
-                  0x005dac                  __ZN12PeriodicTask7executeEv
-                  0x005df4                  __Z13run_all_tasksv
-                  0x005e1a                  __Z8init_qeiv
-                  0x005eb4                  __Z14qei_position_1v
-                  0x005ebc                  __Z14qei_position_2v
-                  0x005ec4                  __Z8init_pwmv
-                  0x005f26                  __Z7set_pwmii
-                  0x005f5a                  __ZN13LowPassFilter19set_cutoff_frequecyEf
-                  0x005fae                  __ZN13LowPassFilter5applyEf
-                  0x005ff0                  __Z10init_clockv
-                  0x00605a                  _canrtsp_enter
-                  0x006124                  __Znwj
-                  0x006130                  __Znaj
-                  0x00613c                  __ZdlPv
-                  0x006148                  __ZdaPv
-                  0x006154                  ___cxa_pure_virtual
-                  0x006158                  __Z11init_timer2v
+                  0x003d02                  __ZN11PathControlC1ER10KinematicsR16SpeedControlTaski
+                  0x003d02                  __ZN11PathControlC2ER10KinematicsR16SpeedControlTaski
+                  0x003d3c                  __ZN11PathControl3runEv
+                  0x003dec                  __ZN11PathControl10addForwardEi
+                  0x003df6                  __ZN11PathControl12addGoToPointEii
+                  0x003e02                  __ZN11PathControl14addAbsRotationEf
+                  0x003e84                  __ZN11PathControl14addRelRotationEf
+                  0x003f06                  __ZN11PathControl19addCircularRotationEff
+                  0x003f8c                  __ZN11PathControl10setCommandEi
+                  0x004016                  __ZN11PathControl6isStopEv
+                  0x004094                  __ZN11PathControl5abortEv
+                  0x0041a4                  __ZN16RelativeRotationC2ER10KinematicsR16SpeedControlTaskfffff
+                  0x0041a4                  __ZN16RelativeRotationC1ER10KinematicsR16SpeedControlTaskfffff
+                  0x00425a                  __ZN16RelativeRotation19set_rotation_targetEf
+                  0x0042ce                  __ZN16RelativeRotation3runEv
+                  0x0045ce                  __ZN16AbsoluteRotationC1ER10KinematicsR16SpeedControlTaskfffff
+                  0x0045ce                  __ZN16AbsoluteRotationC2ER10KinematicsR16SpeedControlTaskfffff
+                  0x00462e                  __ZN16AbsoluteRotation26evaluate_absolute_rotationEf
+                  0x0046e0                  __ZN16AbsoluteRotation3runEv
+                  0x0049e0                  __ZN10KinematicsC1ER4Poseffff
+                  0x0049e0                  __ZN10KinematicsC2ER4Poseffff
+                  0x004a40                  __ZN10Kinematics15set_radius_leftEf
+                  0x004a76                  __ZN10Kinematics16set_radius_rightEf
+                  0x004aac                  __ZN10Kinematics3runEv
+                  0x004d4c                  __ZN3PidC1Effffff
+                  0x004d4c                  __ZN3PidC2Effffff
+                  0x004db6                  __ZN3PidC1Ev
+                  0x004db6                  __ZN3PidC2Ev
+                  0x004e06                  __ZN3PidD1Ev
+                  0x004e06                  __ZN3PidD2Ev
+                  0x004e14                  __ZN3Pid4initEffffff
+                  0x004e70                  __ZN3Pid10set_paramsEffff
+                  0x004eae                  __ZN3Pid23set_derivative_low_passEf
+                  0x004ec4                  __ZN3Pid5resetEv
+                  0x004eea                  __ZN3Pid19derivative_low_passEf
+                  0x004f08                  __ZN3Pid10derivativeEff
+                  0x004f26                  __ZN3Pid8evaluateEff
+                  0x004f50                  __ZN3Pid20evaluate_using_errorEfff
+                  0x0050b6                  __ZN17PidDerivateOutput10derivativeEff
+                  0x0051b8                  __ZN10FollowLine14target_reachedEv
+                  0x0051c2                  __ZN10FollowLine3runEv
+                  0x005230                  __ZN10FollowLine20evaluateAngularSpeedEv
+                  0x00529a                  __ZN10FollowLine19evaluateLinearSpeedER5PointR4Posef
+                  0x00548e                  __ZN5Point11getDistanceERS_
+                  0x0054d0                  __ZN4Pose15local_to_globalER5PointS1_
+                  0x00554e                  __ZN4Pose15global_to_localER5PointS1_
+                  0x0055de                  __ZN4LineC2ER5PointS1_
+                  0x0055de                  __ZN4LineC1ER5PointS1_
+                  0x00564a                  __ZN4Line11getDistanceEff
+                  0x0056c2                  __ZN4Line9getDThetaEv
+                  0x005702                  __ZN16Chebyshev4FilterC1Efffffffffff
+                  0x005702                  __ZN16Chebyshev4FilterC2Efffffffffff
+                  0x0057c8                  __ZN16Chebyshev4Filter5applyEf
+                  0x00598e                  __Z22initialize_peripheralsv
+                  0x0059b4                  __Z13flash_at_bootv
+                  0x0059e0                  _main
+                  0x005b1a                  _canstdio_endpoint_process_can_frame
+                  0x005b98                  _canstdio_is_connected
+                  0x005ba0                  _canstdio_getcharacter
+                  0x005c4c                  _canstdio_is_input_available
+                  0x005c54                  _canstdio_send
+                  0x005d64                  __ZN16SpeedControlTaskC1ER10Kinematics
+                  0x005d64                  __ZN16SpeedControlTaskC2ER10Kinematics
+                  0x005dfa                  __ZN16SpeedControlTask10set_paramsEfff
+                  0x005e46                  __ZN16SpeedControlTask3offEb
+                  0x005e78                  __ZN16SpeedControlTask3runEv
+                  0x005f06                  __ZN12PeriodicTaskC1EPKcifib
+                  0x005f06                  __ZN12PeriodicTaskC2EPKcifib
+                  0x005f9e                  __ZN12PeriodicTask7executeEv
+                  0x005fe6                  __Z13run_all_tasksv
+                  0x00600c                  __Z8init_qeiv
+                  0x0060a6                  __Z14qei_position_1v
+                  0x0060ae                  __Z14qei_position_2v
+                  0x0060b6                  __Z8init_pwmv
+                  0x006118                  __Z7set_pwmii
+                  0x00614c                  __ZN13LowPassFilter19set_cutoff_frequecyEf
+                  0x0061a0                  __ZN13LowPassFilter5applyEf
+                  0x0061e2                  __Z10init_clockv
+                  0x00624c                  _canrtsp_enter
+                  0x006316                  __Znwj
+                  0x006322                  __Znaj
+                  0x00632e                  __ZdlPv
+                  0x00633a                  __ZdaPv
+                  0x006346                  ___cxa_pure_virtual
+                  0x00634a                  __Z11init_timer2v
                   0x01530a                  _canrtsp_kernel
 
 External Symbols in Program Memory (by name):
@@ -477,100 +478,101 @@ External Symbols in Program Memory (by name):
                   0x0031b2                  __DMA6Interrupt
                   0x0031ba                  __DMA7Interrupt
                   0x00031c                  __DefaultInterrupt
-                  0x005ff0                  __Z10init_clockv
-                  0x006158                  __Z11init_timer2v
-                  0x0057c2                  __Z13flash_at_bootv
-                  0x005df4                  __Z13run_all_tasksv
-                  0x005eb4                  __Z14qei_position_1v
-                  0x005ebc                  __Z14qei_position_2v
+                  0x0061e2                  __Z10init_clockv
+                  0x00634a                  __Z11init_timer2v
+                  0x0059b4                  __Z13flash_at_bootv
+                  0x005fe6                  __Z13run_all_tasksv
+                  0x0060a6                  __Z14qei_position_1v
+                  0x0060ae                  __Z14qei_position_2v
                   0x002dc8                  __Z18init_can_interfacev
-                  0x00579c                  __Z22initialize_peripheralsv
-                  0x005f26                  __Z7set_pwmii
-                  0x005ec4                  __Z8init_pwmv
-                  0x005e1a                  __Z8init_qeiv
-                  0x004d36                  __ZN10FollowLine14target_reachedEv
-                  0x004e18                  __ZN10FollowLine19evaluateLinearSpeedER5PointR4Posef
-                  0x004dae                  __ZN10FollowLine20evaluateAngularSpeedEv
-                  0x004d40                  __ZN10FollowLine3runEv
-                  0x0045be                  __ZN10Kinematics15set_radius_leftEf
-                  0x0045f4                  __ZN10Kinematics16set_radius_rightEf
-                  0x00462a                  __ZN10Kinematics3runEv
-                  0x00455e                  __ZN10KinematicsC1ER4Poseffff
-                  0x00455e                  __ZN10KinematicsC2ER4Poseffff
-                  0x00540c                  __ZN11PathControl10addForwardEi
-                  0x005436                  __ZN11PathControl10setCommandEi
-                  0x005416                  __ZN11PathControl12addGoToPointEii
-                  0x005422                  __ZN11PathControl14addAbsRotationEi
-                  0x00542c                  __ZN11PathControl14addRelRotationEi
-                  0x005358                  __ZN11PathControl3runEv
-                  0x0054be                  __ZN11PathControl5abortEv
-                  0x005440                  __ZN11PathControl6isStopEv
-                  0x00531e                  __ZN11PathControlC1ER10KinematicsR16SpeedControlTaski
-                  0x00531e                  __ZN11PathControlC2ER10KinematicsR16SpeedControlTaski
-                  0x005dac                  __ZN12PeriodicTask7executeEv
-                  0x005d14                  __ZN12PeriodicTaskC1EPKcifib
-                  0x005d14                  __ZN12PeriodicTaskC2EPKcifib
+                  0x00598e                  __Z22initialize_peripheralsv
+                  0x006118                  __Z7set_pwmii
+                  0x0060b6                  __Z8init_pwmv
+                  0x00600c                  __Z8init_qeiv
+                  0x0051b8                  __ZN10FollowLine14target_reachedEv
+                  0x00529a                  __ZN10FollowLine19evaluateLinearSpeedER5PointR4Posef
+                  0x005230                  __ZN10FollowLine20evaluateAngularSpeedEv
+                  0x0051c2                  __ZN10FollowLine3runEv
+                  0x004a40                  __ZN10Kinematics15set_radius_leftEf
+                  0x004a76                  __ZN10Kinematics16set_radius_rightEf
+                  0x004aac                  __ZN10Kinematics3runEv
+                  0x0049e0                  __ZN10KinematicsC1ER4Poseffff
+                  0x0049e0                  __ZN10KinematicsC2ER4Poseffff
+                  0x003dec                  __ZN11PathControl10addForwardEi
+                  0x003f8c                  __ZN11PathControl10setCommandEi
+                  0x003df6                  __ZN11PathControl12addGoToPointEii
+                  0x003e02                  __ZN11PathControl14addAbsRotationEf
+                  0x003e84                  __ZN11PathControl14addRelRotationEf
+                  0x003f06                  __ZN11PathControl19addCircularRotationEff
+                  0x003d3c                  __ZN11PathControl3runEv
+                  0x004094                  __ZN11PathControl5abortEv
+                  0x004016                  __ZN11PathControl6isStopEv
+                  0x003d02                  __ZN11PathControlC1ER10KinematicsR16SpeedControlTaski
+                  0x003d02                  __ZN11PathControlC2ER10KinematicsR16SpeedControlTaski
+                  0x005f9e                  __ZN12PeriodicTask7executeEv
+                  0x005f06                  __ZN12PeriodicTaskC1EPKcifib
+                  0x005f06                  __ZN12PeriodicTaskC2EPKcifib
                   0x002ce2                  __ZN13CanPoseSender3runEv
                   0x002cbc                  __ZN13CanPoseSenderC1ER4Pose
                   0x002cbc                  __ZN13CanPoseSenderC2ER4Pose
-                  0x005f5a                  __ZN13LowPassFilter19set_cutoff_frequecyEf
-                  0x005fae                  __ZN13LowPassFilter5applyEf
+                  0x00614c                  __ZN13LowPassFilter19set_cutoff_frequecyEf
+                  0x0061a0                  __ZN13LowPassFilter5applyEf
                   0x002d70                  __ZN14CanSpeedSender3runEv
                   0x002d4a                  __ZN14CanSpeedSenderC1ER16SpeedControlTask
                   0x002d4a                  __ZN14CanSpeedSenderC2ER16SpeedControlTask
-                  0x0041ac                  __ZN16AbsoluteRotation26evaluate_absolute_rotationEf
-                  0x00425e                  __ZN16AbsoluteRotation3runEv
-                  0x00414c                  __ZN16AbsoluteRotationC1ER10KinematicsR16SpeedControlTaskfffff
-                  0x00414c                  __ZN16AbsoluteRotationC2ER10KinematicsR16SpeedControlTaskfffff
-                  0x0055d6                  __ZN16Chebyshev4Filter5applyEf
-                  0x005510                  __ZN16Chebyshev4FilterC1Efffffffffff
-                  0x005510                  __ZN16Chebyshev4FilterC2Efffffffffff
+                  0x00462e                  __ZN16AbsoluteRotation26evaluate_absolute_rotationEf
+                  0x0046e0                  __ZN16AbsoluteRotation3runEv
+                  0x0045ce                  __ZN16AbsoluteRotationC1ER10KinematicsR16SpeedControlTaskfffff
+                  0x0045ce                  __ZN16AbsoluteRotationC2ER10KinematicsR16SpeedControlTaskfffff
+                  0x0057c8                  __ZN16Chebyshev4Filter5applyEf
+                  0x005702                  __ZN16Chebyshev4FilterC1Efffffffffff
+                  0x005702                  __ZN16Chebyshev4FilterC2Efffffffffff
                   0x003436                  __ZN16CircularRotation19set_rotation_targetEff
                   0x00352a                  __ZN16CircularRotation3runEv
                   0x0033dc                  __ZN16CircularRotationC1ER10KinematicsR16SpeedControlTaskfffff
                   0x0033dc                  __ZN16CircularRotationC2ER10KinematicsR16SpeedControlTaskfffff
-                  0x003dd8                  __ZN16RelativeRotation19set_rotation_targetEf
-                  0x003e4c                  __ZN16RelativeRotation3runEv
-                  0x003d22                  __ZN16RelativeRotationC1ER10KinematicsR16SpeedControlTaskfffff
-                  0x003d22                  __ZN16RelativeRotationC2ER10KinematicsR16SpeedControlTaskfffff
-                  0x005c08                  __ZN16SpeedControlTask10set_paramsEfff
-                  0x005c54                  __ZN16SpeedControlTask3offEb
-                  0x005c86                  __ZN16SpeedControlTask3runEv
-                  0x005b72                  __ZN16SpeedControlTaskC1ER10Kinematics
-                  0x005b72                  __ZN16SpeedControlTaskC2ER10Kinematics
-                  0x004c34                  __ZN17PidDerivateOutput10derivativeEff
+                  0x00425a                  __ZN16RelativeRotation19set_rotation_targetEf
+                  0x0042ce                  __ZN16RelativeRotation3runEv
+                  0x0041a4                  __ZN16RelativeRotationC1ER10KinematicsR16SpeedControlTaskfffff
+                  0x0041a4                  __ZN16RelativeRotationC2ER10KinematicsR16SpeedControlTaskfffff
+                  0x005dfa                  __ZN16SpeedControlTask10set_paramsEfff
+                  0x005e46                  __ZN16SpeedControlTask3offEb
+                  0x005e78                  __ZN16SpeedControlTask3runEv
+                  0x005d64                  __ZN16SpeedControlTaskC1ER10Kinematics
+                  0x005d64                  __ZN16SpeedControlTaskC2ER10Kinematics
+                  0x0050b6                  __ZN17PidDerivateOutput10derivativeEff
                   0x0029ae                  __ZN18CanCommandReceiver15process_commandEPK20t_can_motion_command
                   0x0029a2                  __ZN18CanCommandReceiver3runEv
                   0x002986                  __ZN18CanCommandReceiverC1ER10KinematicsR16SpeedControlTask
                   0x002986                  __ZN18CanCommandReceiverC2ER10KinematicsR16SpeedControlTask
-                  0x004a86                  __ZN3Pid10derivativeEff
-                  0x0049ee                  __ZN3Pid10set_paramsEffff
-                  0x004a68                  __ZN3Pid19derivative_low_passEf
-                  0x004ace                  __ZN3Pid20evaluate_using_errorEfff
-                  0x004a2c                  __ZN3Pid23set_derivative_low_passEf
-                  0x004992                  __ZN3Pid4initEffffff
-                  0x004a42                  __ZN3Pid5resetEv
-                  0x004aa4                  __ZN3Pid8evaluateEff
-                  0x0048ca                  __ZN3PidC1Effffff
-                  0x004934                  __ZN3PidC1Ev
-                  0x0048ca                  __ZN3PidC2Effffff
-                  0x004934                  __ZN3PidC2Ev
-                  0x004984                  __ZN3PidD1Ev
-                  0x004984                  __ZN3PidD2Ev
-                  0x0051c8                  __ZN4Line11getDistanceEff
-                  0x005240                  __ZN4Line9getDThetaEv
-                  0x00515c                  __ZN4LineC1ER5PointS1_
-                  0x00515c                  __ZN4LineC2ER5PointS1_
-                  0x0050cc                  __ZN4Pose15global_to_localER5PointS1_
-                  0x00504e                  __ZN4Pose15local_to_globalER5PointS1_
-                  0x00500c                  __ZN5Point11getDistanceERS_
-                  0x006148                  __ZdaPv
-                  0x00613c                  __ZdlPv
-                  0x006130                  __Znaj
-                  0x006124                  __Znwj
+                  0x004f08                  __ZN3Pid10derivativeEff
+                  0x004e70                  __ZN3Pid10set_paramsEffff
+                  0x004eea                  __ZN3Pid19derivative_low_passEf
+                  0x004f50                  __ZN3Pid20evaluate_using_errorEfff
+                  0x004eae                  __ZN3Pid23set_derivative_low_passEf
+                  0x004e14                  __ZN3Pid4initEffffff
+                  0x004ec4                  __ZN3Pid5resetEv
+                  0x004f26                  __ZN3Pid8evaluateEff
+                  0x004d4c                  __ZN3PidC1Effffff
+                  0x004db6                  __ZN3PidC1Ev
+                  0x004d4c                  __ZN3PidC2Effffff
+                  0x004db6                  __ZN3PidC2Ev
+                  0x004e06                  __ZN3PidD1Ev
+                  0x004e06                  __ZN3PidD2Ev
+                  0x00564a                  __ZN4Line11getDistanceEff
+                  0x0056c2                  __ZN4Line9getDThetaEv
+                  0x0055de                  __ZN4LineC1ER5PointS1_
+                  0x0055de                  __ZN4LineC2ER5PointS1_
+                  0x00554e                  __ZN4Pose15global_to_localER5PointS1_
+                  0x0054d0                  __ZN4Pose15local_to_globalER5PointS1_
+                  0x00548e                  __ZN5Point11getDistanceERS_
+                  0x00633a                  __ZdaPv
+                  0x00632e                  __ZdlPv
+                  0x006322                  __Znaj
+                  0x006316                  __Znwj
                   0x0009aa                  ___addsf3
                   0x0009aa                  ___addsf3x
-                  0x006154                  ___cxa_pure_virtual
+                  0x006346                  ___cxa_pure_virtual
                   0x00023c                  ___delay32
                   0x000e58                  ___divsf3
                   0x000e58                  ___divsf3x
@@ -631,13 +633,13 @@ External Symbols in Program Memory (by name):
                   0x000362                  _atan2f
                   0x0013ee                  _atanf
                   0x0013ee                  _atanfx
-                  0x00605a                  _canrtsp_enter
+                  0x00624c                  _canrtsp_enter
                   0x01530a                  _canrtsp_kernel
-                  0x005928                  _canstdio_endpoint_process_can_frame
-                  0x0059ae                  _canstdio_getcharacter
-                  0x0059a6                  _canstdio_is_connected
-                  0x005a5a                  _canstdio_is_input_available
-                  0x005a62                  _canstdio_send
+                  0x005b1a                  _canstdio_endpoint_process_can_frame
+                  0x005ba0                  _canstdio_getcharacter
+                  0x005b98                  _canstdio_is_connected
+                  0x005c4c                  _canstdio_is_input_available
+                  0x005c54                  _canstdio_send
                   0x000dbe                  _cosf
                   0x000dbe                  _cosfx
                   0x0027c8                  _ecan_clear_rxful
@@ -673,7 +675,7 @@ External Symbols in Program Memory (by name):
                   0x00150c                  _log10fx
                   0x001510                  _logf
                   0x001510                  _logfx
-                  0x0057ee                  _main
+                  0x0059e0                  _main
                   0x0007ee                  _malloc
                   0x0007e0                  _memcpy
                   0x0007bc                  _memmove
@@ -2550,7 +2552,7 @@ libmxconst          0x9c28        0x1e4 indirizzo di caricamento 0x001c28
                     0x9f68                  vtable for LowPassFilter
  .const             0x9f6e          0x2 build//libs/can_stdio_and_rtsp/canstdio_endpoint.o
 
-.text             0x001f70       0x4154
+.text             0x001f70       0x4346
  .text            0x001f70        0x8ac build//libs/ecan_lib/ecan_driver.o
                   0x002164                  ecan_write_rx_acceptance_filter
                   0x0022f0                  ecan_write_rx_acceptance_mask
@@ -2611,152 +2613,153 @@ libmxconst          0x9c28        0x1e4 indirizzo di caricamento 0x001c28
                   0x003adc                  ecan_set_fifo_start_area
                   0x003af8                  ecan_configure_tx_buffer
                   0x003bf0                  ecan_config
- .text            0x003c40        0x434 build//MotionControl_v6/relative_rotation.o
-                  0x003c78                  Kinematics::angular_speed()
-                  0x003c86                  Kinematics::wheelbase()
-                  0x003c94                  Kinematics::angular_distance()
-                  0x003ca2                  Kinematics::set_angular_distance(float)
-                  0x003ce8                  PositionControl::PositionControl(Kinematics&, SpeedControlTask&)
-                  0x003d16                  RelativeRotation::target_reached()
-                  0x003d22                  RelativeRotation::RelativeRotation(Kinematics&, SpeedControlTask&, float, float, float, float, float)
-                  0x003d22                  RelativeRotation::RelativeRotation(Kinematics&, SpeedControlTask&, float, float, float, float, float)
-                  0x003dd8                  RelativeRotation::set_rotation_target(float)
-                  0x003e4c                  RelativeRotation::run()
- .text            0x004074        0x414 build//MotionControl_v6/absolute_rotation.o
-                  0x004140                  AbsoluteRotation::target_reached()
-                  0x00414c                  AbsoluteRotation::AbsoluteRotation(Kinematics&, SpeedControlTask&, float, float, float, float, float)
-                  0x00414c                  AbsoluteRotation::AbsoluteRotation(Kinematics&, SpeedControlTask&, float, float, float, float, float)
-                  0x0041ac                  AbsoluteRotation::evaluate_absolute_rotation(float)
-                  0x00425e                  AbsoluteRotation::run()
- .text            0x004488        0x3ee build//MotionControl_v6/kinematics.o
-                  0x004488                  PeriodicTask::on()
-                  0x004496                  PeriodicTask::off()
-                  0x0044a4                  PeriodicTask::on_status()
-                  0x0044b0                  PeriodicTask::set_period(int)
-                  0x004504                  Pose::theta()
-                  0x004512                  Pose::theta(float)
-                  0x004528                  Kinematics::set_radius(float, float)
-                  0x004548                  Kinematics::set_wheelbase(float)
-                  0x00455e                  Kinematics::Kinematics(Pose&, float, float, float, float)
-                  0x00455e                  Kinematics::Kinematics(Pose&, float, float, float, float)
-                  0x0045be                  Kinematics::set_radius_left(float)
-                  0x0045f4                  Kinematics::set_radius_right(float)
-                  0x00462a                  Kinematics::run()
- .text            0x004876        0x3de build//libs/controllib/pid.o
-                  0x004876                  Filter::Filter(float)
-                  0x00489a                  Filter::set_dt(float)
-                  0x0048b0                  LowPassFilter::LowPassFilter(float)
-                  0x0048ca                  Pid::Pid(float, float, float, float, float, float)
-                  0x0048ca                  Pid::Pid(float, float, float, float, float, float)
-                  0x004934                  Pid::Pid()
-                  0x004934                  Pid::Pid()
-                  0x004984                  Pid::~Pid()
-                  0x004984                  Pid::~Pid()
-                  0x004992                  Pid::init(float, float, float, float, float, float)
-                  0x0049ee                  Pid::set_params(float, float, float, float)
-                  0x004a2c                  Pid::set_derivative_low_pass(float)
-                  0x004a42                  Pid::reset()
-                  0x004a68                  Pid::derivative_low_pass(float)
-                  0x004a86                  Pid::derivative(float, float)
-                  0x004aa4                  Pid::evaluate(float, float)
-                  0x004ace                  Pid::evaluate_using_error(float, float, float)
-                  0x004c34                  PidDerivateOutput::derivative(float, float)
- .text            0x004c54        0x374 build//MotionControl_v6/followLine.o
-                  0x004c70                  Point::Point(float, float)
-                  0x004c92                  Point::~Point()
-                  0x004cde                  Kinematics::pose()
-                  0x004cea                  SpeedControlTask::set_targets(float, float)
-                  0x004d1a                  FollowLine::on()
-                  0x004d28                  FollowLine::off()
-                  0x004d36                  FollowLine::target_reached()
-                  0x004d40                  FollowLine::run()
-                  0x004dae                  FollowLine::evaluateAngularSpeed()
-                  0x004e18                  FollowLine::evaluateLinearSpeed(Point&, Pose&, float)
- .text            0x004fc8        0x294 build//MotionControl_v6/geometry.o
-                  0x004fc8                  Point::x()
-                  0x004fd4                  Point::y()
-                  0x004fe2                  Point::x(float)
-                  0x004ff6                  Point::y(float)
-                  0x00500c                  Point::getDistance(Point&)
-                  0x00504e                  Pose::local_to_global(Point&, Point&)
-                  0x0050cc                  Pose::global_to_local(Point&, Point&)
-                  0x00515c                  Line::Line(Point&, Point&)
-                  0x00515c                  Line::Line(Point&, Point&)
-                  0x0051c8                  Line::getDistance(float, float)
-                  0x005240                  Line::getDTheta()
- .text            0x00525c        0x290 build//MotionControl_v6/path_control.o
-                  0x0052d4                  SpeedControlTask::get_target_left()
-                  0x0052e2                  SpeedControlTask::get_target_right()
-                  0x00531e                  PathControl::PathControl(Kinematics&, SpeedControlTask&, int)
-                  0x00531e                  PathControl::PathControl(Kinematics&, SpeedControlTask&, int)
-                  0x005358                  PathControl::run()
-                  0x00540c                  PathControl::addForward(int)
-                  0x005416                  PathControl::addGoToPoint(int, int)
-                  0x005422                  PathControl::addAbsRotation(int)
-                  0x00542c                  PathControl::addRelRotation(int)
-                  0x005436                  PathControl::setCommand(int)
-                  0x005440                  PathControl::isStop()
-                  0x0054be                  PathControl::abort()
- .text            0x0054ec        0x234 build//libs/controllib/chebyshev.o
-                  0x005510                  Chebyshev4Filter::Chebyshev4Filter(float, float, float, float, float, float, float, float, float, float, float)
-                  0x005510                  Chebyshev4Filter::Chebyshev4Filter(float, float, float, float, float, float, float, float, float, float, float)
-                  0x0055d6                  Chebyshev4Filter::apply(float)
- .text            0x005720        0x208 build//MotionControl_v6/main.o
-                  0x005720                  Point::Point(float, float)
-                  0x005742                  Point::~Point()
-                  0x00574a                  Pose::Pose(float, float, float)
-                  0x005774                  Pose::~Pose()
-                  0x00578e                  Kinematics::~Kinematics()
-                  0x00579c                  initialize_peripherals()
-                  0x0057c2                  flash_at_boot()
-                  0x0057ee                  main
-                  0x00581e                  SpeedControlTask::~SpeedControlTask()
- .text            0x005928        0x1f6 build//libs/can_stdio_and_rtsp/canstdio_endpoint.o
-                  0x005928                  canstdio_endpoint_process_can_frame
-                  0x0059a6                  canstdio_is_connected
-                  0x0059ae                  canstdio_getcharacter
-                  0x005a5a                  canstdio_is_input_available
-                  0x005a62                  canstdio_send
- .text            0x005b1e        0x1be build//MotionControl_v6/speed_control.o
-                  0x005b56                  Kinematics::speed_left()
-                  0x005b64                  Kinematics::speed_right()
-                  0x005b72                  SpeedControlTask::SpeedControlTask(Kinematics&)
-                  0x005b72                  SpeedControlTask::SpeedControlTask(Kinematics&)
-                  0x005c08                  SpeedControlTask::set_params(float, float, float)
-                  0x005c54                  SpeedControlTask::off(bool)
-                  0x005c86                  SpeedControlTask::run()
- .text            0x005cdc        0x13e build//libs/controllib/periodic_task.o
-                  0x005d14                  PeriodicTask::PeriodicTask(char const*, int, float, int, bool)
-                  0x005d14                  PeriodicTask::PeriodicTask(char const*, int, float, int, bool)
-                  0x005dac                  PeriodicTask::execute()
-                  0x005df4                  run_all_tasks()
- .text            0x005e1a         0xaa build//MotionControl_v6/qei.o
-                  0x005e1a                  init_qei()
-                  0x005eb4                  qei_position_1()
-                  0x005ebc                  qei_position_2()
- .text            0x005ec4         0x96 build//MotionControl_v6/pwm.o
-                  0x005ec4                  init_pwm()
-                  0x005f26                  set_pwm(int, int)
- .text            0x005f5a         0x96 build//libs/controllib/low_pass.o
-                  0x005f5a                  LowPassFilter::set_cutoff_frequecy(float)
-                  0x005fae                  LowPassFilter::apply(float)
- .text            0x005ff0         0x6a build//MotionControl_v6/clocking.o
-                  0x005ff0                  init_clock()
- .text            0x00605a         0x6a build//libs/can_stdio_and_rtsp/canrtsp_endpoint.o
-                  0x00605a                  canrtsp_enter
+ .text            0x003c40        0x482 build//MotionControl_v6/path_control.o
+                  0x003cb8                  SpeedControlTask::get_target_left()
+                  0x003cc6                  SpeedControlTask::get_target_right()
+                  0x003d02                  PathControl::PathControl(Kinematics&, SpeedControlTask&, int)
+                  0x003d02                  PathControl::PathControl(Kinematics&, SpeedControlTask&, int)
+                  0x003d3c                  PathControl::run()
+                  0x003dec                  PathControl::addForward(int)
+                  0x003df6                  PathControl::addGoToPoint(int, int)
+                  0x003e02                  PathControl::addAbsRotation(float)
+                  0x003e84                  PathControl::addRelRotation(float)
+                  0x003f06                  PathControl::addCircularRotation(float, float)
+                  0x003f8c                  PathControl::setCommand(int)
+                  0x004016                  PathControl::isStop()
+                  0x004094                  PathControl::abort()
+ .text            0x0040c2        0x434 build//MotionControl_v6/relative_rotation.o
+                  0x0040fa                  Kinematics::angular_speed()
+                  0x004108                  Kinematics::wheelbase()
+                  0x004116                  Kinematics::angular_distance()
+                  0x004124                  Kinematics::set_angular_distance(float)
+                  0x00416a                  PositionControl::PositionControl(Kinematics&, SpeedControlTask&)
+                  0x004198                  RelativeRotation::target_reached()
+                  0x0041a4                  RelativeRotation::RelativeRotation(Kinematics&, SpeedControlTask&, float, float, float, float, float)
+                  0x0041a4                  RelativeRotation::RelativeRotation(Kinematics&, SpeedControlTask&, float, float, float, float, float)
+                  0x00425a                  RelativeRotation::set_rotation_target(float)
+                  0x0042ce                  RelativeRotation::run()
+ .text            0x0044f6        0x414 build//MotionControl_v6/absolute_rotation.o
+                  0x0045c2                  AbsoluteRotation::target_reached()
+                  0x0045ce                  AbsoluteRotation::AbsoluteRotation(Kinematics&, SpeedControlTask&, float, float, float, float, float)
+                  0x0045ce                  AbsoluteRotation::AbsoluteRotation(Kinematics&, SpeedControlTask&, float, float, float, float, float)
+                  0x00462e                  AbsoluteRotation::evaluate_absolute_rotation(float)
+                  0x0046e0                  AbsoluteRotation::run()
+ .text            0x00490a        0x3ee build//MotionControl_v6/kinematics.o
+                  0x00490a                  PeriodicTask::on()
+                  0x004918                  PeriodicTask::off()
+                  0x004926                  PeriodicTask::on_status()
+                  0x004932                  PeriodicTask::set_period(int)
+                  0x004986                  Pose::theta()
+                  0x004994                  Pose::theta(float)
+                  0x0049aa                  Kinematics::set_radius(float, float)
+                  0x0049ca                  Kinematics::set_wheelbase(float)
+                  0x0049e0                  Kinematics::Kinematics(Pose&, float, float, float, float)
+                  0x0049e0                  Kinematics::Kinematics(Pose&, float, float, float, float)
+                  0x004a40                  Kinematics::set_radius_left(float)
+                  0x004a76                  Kinematics::set_radius_right(float)
+                  0x004aac                  Kinematics::run()
+ .text            0x004cf8        0x3de build//libs/controllib/pid.o
+                  0x004cf8                  Filter::Filter(float)
+                  0x004d1c                  Filter::set_dt(float)
+                  0x004d32                  LowPassFilter::LowPassFilter(float)
+                  0x004d4c                  Pid::Pid(float, float, float, float, float, float)
+                  0x004d4c                  Pid::Pid(float, float, float, float, float, float)
+                  0x004db6                  Pid::Pid()
+                  0x004db6                  Pid::Pid()
+                  0x004e06                  Pid::~Pid()
+                  0x004e06                  Pid::~Pid()
+                  0x004e14                  Pid::init(float, float, float, float, float, float)
+                  0x004e70                  Pid::set_params(float, float, float, float)
+                  0x004eae                  Pid::set_derivative_low_pass(float)
+                  0x004ec4                  Pid::reset()
+                  0x004eea                  Pid::derivative_low_pass(float)
+                  0x004f08                  Pid::derivative(float, float)
+                  0x004f26                  Pid::evaluate(float, float)
+                  0x004f50                  Pid::evaluate_using_error(float, float, float)
+                  0x0050b6                  PidDerivateOutput::derivative(float, float)
+ .text            0x0050d6        0x374 build//MotionControl_v6/followLine.o
+                  0x0050f2                  Point::Point(float, float)
+                  0x005114                  Point::~Point()
+                  0x005160                  Kinematics::pose()
+                  0x00516c                  SpeedControlTask::set_targets(float, float)
+                  0x00519c                  FollowLine::on()
+                  0x0051aa                  FollowLine::off()
+                  0x0051b8                  FollowLine::target_reached()
+                  0x0051c2                  FollowLine::run()
+                  0x005230                  FollowLine::evaluateAngularSpeed()
+                  0x00529a                  FollowLine::evaluateLinearSpeed(Point&, Pose&, float)
+ .text            0x00544a        0x294 build//MotionControl_v6/geometry.o
+                  0x00544a                  Point::x()
+                  0x005456                  Point::y()
+                  0x005464                  Point::x(float)
+                  0x005478                  Point::y(float)
+                  0x00548e                  Point::getDistance(Point&)
+                  0x0054d0                  Pose::local_to_global(Point&, Point&)
+                  0x00554e                  Pose::global_to_local(Point&, Point&)
+                  0x0055de                  Line::Line(Point&, Point&)
+                  0x0055de                  Line::Line(Point&, Point&)
+                  0x00564a                  Line::getDistance(float, float)
+                  0x0056c2                  Line::getDTheta()
+ .text            0x0056de        0x234 build//libs/controllib/chebyshev.o
+                  0x005702                  Chebyshev4Filter::Chebyshev4Filter(float, float, float, float, float, float, float, float, float, float, float)
+                  0x005702                  Chebyshev4Filter::Chebyshev4Filter(float, float, float, float, float, float, float, float, float, float, float)
+                  0x0057c8                  Chebyshev4Filter::apply(float)
+ .text            0x005912        0x208 build//MotionControl_v6/main.o
+                  0x005912                  Point::Point(float, float)
+                  0x005934                  Point::~Point()
+                  0x00593c                  Pose::Pose(float, float, float)
+                  0x005966                  Pose::~Pose()
+                  0x005980                  Kinematics::~Kinematics()
+                  0x00598e                  initialize_peripherals()
+                  0x0059b4                  flash_at_boot()
+                  0x0059e0                  main
+                  0x005a10                  SpeedControlTask::~SpeedControlTask()
+ .text            0x005b1a        0x1f6 build//libs/can_stdio_and_rtsp/canstdio_endpoint.o
+                  0x005b1a                  canstdio_endpoint_process_can_frame
+                  0x005b98                  canstdio_is_connected
+                  0x005ba0                  canstdio_getcharacter
+                  0x005c4c                  canstdio_is_input_available
+                  0x005c54                  canstdio_send
+ .text            0x005d10        0x1be build//MotionControl_v6/speed_control.o
+                  0x005d48                  Kinematics::speed_left()
+                  0x005d56                  Kinematics::speed_right()
+                  0x005d64                  SpeedControlTask::SpeedControlTask(Kinematics&)
+                  0x005d64                  SpeedControlTask::SpeedControlTask(Kinematics&)
+                  0x005dfa                  SpeedControlTask::set_params(float, float, float)
+                  0x005e46                  SpeedControlTask::off(bool)
+                  0x005e78                  SpeedControlTask::run()
+ .text            0x005ece        0x13e build//libs/controllib/periodic_task.o
+                  0x005f06                  PeriodicTask::PeriodicTask(char const*, int, float, int, bool)
+                  0x005f06                  PeriodicTask::PeriodicTask(char const*, int, float, int, bool)
+                  0x005f9e                  PeriodicTask::execute()
+                  0x005fe6                  run_all_tasks()
+ .text            0x00600c         0xaa build//MotionControl_v6/qei.o
+                  0x00600c                  init_qei()
+                  0x0060a6                  qei_position_1()
+                  0x0060ae                  qei_position_2()
+ .text            0x0060b6         0x96 build//MotionControl_v6/pwm.o
+                  0x0060b6                  init_pwm()
+                  0x006118                  set_pwm(int, int)
+ .text            0x00614c         0x96 build//libs/controllib/low_pass.o
+                  0x00614c                  LowPassFilter::set_cutoff_frequecy(float)
+                  0x0061a0                  LowPassFilter::apply(float)
+ .text            0x0061e2         0x6a build//MotionControl_v6/clocking.o
+                  0x0061e2                  init_clock()
+ .text            0x00624c         0x6a build//libs/can_stdio_and_rtsp/canrtsp_endpoint.o
+                  0x00624c                  canrtsp_enter
 
-.dinit            0x0060c4         0x60
- .dinit           0x0060c4         0x60 data_init
+.dinit            0x0062b6         0x60
+ .dinit           0x0062b6         0x60 data_init
 
-.text             0x006124         0x62
- .text            0x006124         0x34 build//libs/c++support/minilibstdc++.o
-                  0x006124                  operator new(unsigned)
-                  0x006130                  operator new[](unsigned)
-                  0x00613c                  operator delete(void*)
-                  0x006148                  operator delete[](void*)
-                  0x006154                  __cxa_pure_virtual
- .text            0x006158         0x2e build//MotionControl_v6/timers.o
-                  0x006158                  init_timer2()
+.text             0x006316         0x62
+ .text            0x006316         0x34 build//libs/c++support/minilibstdc++.o
+                  0x006316                  operator new(unsigned)
+                  0x006322                  operator new[](unsigned)
+                  0x00632e                  operator delete(void*)
+                  0x00633a                  operator delete[](void*)
+                  0x006346                  __cxa_pure_virtual
+ .text            0x00634a         0x2e build//MotionControl_v6/timers.o
+                  0x00634a                  init_timer2()
 
 Tabella dei riferimenti incrociati
 
@@ -2766,6 +2769,7 @@ AbsoluteRotation::AbsoluteRotation(Kinematics&, SpeedControlTask&, float, float,
                                                   build//MotionControl_v6/main.o
 AbsoluteRotation::AbsoluteRotation(Kinematics&, SpeedControlTask&, float, float, float, float, float) build//MotionControl_v6/absolute_rotation.o
 AbsoluteRotation::evaluate_absolute_rotation(float) build//MotionControl_v6/absolute_rotation.o
+                                                  build//MotionControl_v6/path_control.o
                                                   build//MotionControl_v6/can_interface.o
 AbsoluteRotation::run()                           build//MotionControl_v6/absolute_rotation.o
                                                   jump_table
@@ -2838,6 +2842,7 @@ CircularRotation::CircularRotation(Kinematics&, SpeedControlTask&, float, float,
 CircularRotation::run()                           build//MotionControl_v6/circ_rotation.o
                                                   jump_table
 CircularRotation::set_rotation_target(float, float) build//MotionControl_v6/circ_rotation.o
+                                                  build//MotionControl_v6/path_control.o
                                                   build//MotionControl_v6/can_interface.o
 CircularRotation::target_reached()                build//MotionControl_v6/circ_rotation.o
                                                   jump_table
@@ -3009,10 +3014,11 @@ PWM1CON2bits                                      build//MotionControl_v6/pwm.o
 PathControl::PathControl(Kinematics&, SpeedControlTask&, int) build//MotionControl_v6/path_control.o
 PathControl::PathControl(Kinematics&, SpeedControlTask&, int) build//MotionControl_v6/path_control.o
 PathControl::abort()                              build//MotionControl_v6/path_control.o
-PathControl::addAbsRotation(int)                  build//MotionControl_v6/path_control.o
+PathControl::addAbsRotation(float)                build//MotionControl_v6/path_control.o
+PathControl::addCircularRotation(float, float)    build//MotionControl_v6/path_control.o
 PathControl::addForward(int)                      build//MotionControl_v6/path_control.o
 PathControl::addGoToPoint(int, int)               build//MotionControl_v6/path_control.o
-PathControl::addRelRotation(int)                  build//MotionControl_v6/path_control.o
+PathControl::addRelRotation(float)                build//MotionControl_v6/path_control.o
 PathControl::isStop()                             build//MotionControl_v6/path_control.o
 PathControl::run()                                build//MotionControl_v6/path_control.o
                                                   jump_table
@@ -3144,6 +3150,7 @@ RelativeRotation::RelativeRotation(Kinematics&, SpeedControlTask&, float, float,
 RelativeRotation::run()                           build//MotionControl_v6/relative_rotation.o
                                                   jump_table
 RelativeRotation::set_rotation_target(float)      build//MotionControl_v6/relative_rotation.o
+                                                  build//MotionControl_v6/path_control.o
                                                   build//MotionControl_v6/can_interface.o
 RelativeRotation::target_reached()                build//MotionControl_v6/relative_rotation.o
                                                   jump_table
@@ -3461,6 +3468,7 @@ _unpackf                                          /opt/microchip/xc16/v1.25/lib/
 _user_init                                        build//MotionControl_v6.cof
                                                   /opt/microchip/xc16/v1.25/lib/libpic30-coff.a(crt0_standard.o)
 absolute_rotation                                 build//MotionControl_v6/main.o
+                                                  build//MotionControl_v6/path_control.o
                                                   build//MotionControl_v6/can_interface.o
 atan2f                                            /opt/microchip/xc16/v1.25/lib/libfastm-coff.a(atan2f.o)
                                                   build//MotionControl_v6/geometry.o
@@ -3486,6 +3494,7 @@ canstdio_is_connected                             build//libs/can_stdio_and_rtsp
 canstdio_is_input_available                       build//libs/can_stdio_and_rtsp/canstdio_endpoint.o
 canstdio_send                                     build//libs/can_stdio_and_rtsp/canstdio_endpoint.o
 circular_rotation                                 build//MotionControl_v6/main.o
+                                                  build//MotionControl_v6/path_control.o
                                                   build//MotionControl_v6/can_interface.o
 cosf                                              /opt/microchip/xc16/v1.25/lib/libfastm-coff.a(sinfx.o)
                                                   build//MotionControl_v6/kinematics.o
@@ -3599,6 +3608,7 @@ qei_position_2()                                  build//MotionControl_v6/qei.o
                                                   build//MotionControl_v6/kinematics.o
 realloc                                           /opt/microchip/xc16/v1.25/lib/libc-coff.a(malloc.o)
 relative_rotation                                 build//MotionControl_v6/main.o
+                                                  build//MotionControl_v6/path_control.o
                                                   build//MotionControl_v6/can_interface.o
 run_all_tasks()                                   build//libs/controllib/periodic_task.o
                                                   build//MotionControl_v6/main.o

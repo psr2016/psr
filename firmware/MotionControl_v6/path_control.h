@@ -11,13 +11,19 @@
 #define DELTA 0.5
 #define MAX_BLOCK 10
 
+//define per i comandi
+#define ABSOLUTE_ROTATION 1
+#define RELATIVE_ROTATION 2
+#define CIRCULAR_ROTATION 3
+
 struct Command
 {
 	int typeOfCommand;
 	int xCoord;
 	int yCoord;
-	int theata;
 	int distance;
+	float theta;
+	float radius;
 };
 
 class PathControl : public PositionControl{
@@ -27,8 +33,9 @@ public:
 	void run();
 	void addForward(int distance);
 	void addGoToPoint(int x,int y);
-	void addAbsRotation(int theta);
-	void addRelRotation(int theta);
+	void addAbsRotation(float theta);
+	void addRelRotation(float theta);
+	void addCircularRotation(float theta, float radius);
 	void setCommand(int type);
 	bool isStop();
 	void abort();

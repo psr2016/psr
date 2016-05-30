@@ -1,4 +1,7 @@
 #include "path_control.h"
+#include "absolute_rotation.h"
+#include "relative_rotation.h"
+#include "circ_rotation.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
@@ -50,15 +53,79 @@ void PathControl::run()
 
 //add specifico per ogni tipo di comando
 void PathControl::addForward(int distance){}
+
 void PathControl::addGoToPoint(int x,int y){}
-void PathControl::addAbsRotation(int theta){}
-void PathControl::addRelRotation(int theta){}
+
+void PathControl::addAbsRotation(float theta)
+{
+	if(m_insertIndex<PATH_SIZE)
+	{
+		operation[m_insertIndex].typeOfCommand=ABSOLUTE_ROTATION;
+		operation[m_insertIndex].xCoord=0;
+		operation[m_insertIndex].yCoord=0;
+		operation[m_insertIndex].distance=0;
+		operation[m_insertIndex].theta=theta;
+		operation[m_insertIndex].radius=0;
+		m_insertIndex++;
+	}
+}
+
+void PathControl::addRelRotation(float theta)
+{
+	if(m_insertIndex<PATH_SIZE)
+	{
+		operation[m_insertIndex].typeOfCommand=RELATIVE_ROTATION;
+		operation[m_insertIndex].xCoord=0;
+		operation[m_insertIndex].yCoord=0;
+		operation[m_insertIndex].distance=0;
+		operation[m_insertIndex].theta=theta;
+		operation[m_insertIndex].radius=0;
+		m_insertIndex++;
+	}
+}
+
+void PathControl::addCircularRotation(float theta, float radius)
+{
+	if(m_insertIndex<PATH_SIZE)
+	{
+		operation[m_insertIndex].typeOfCommand=CIRCULAR_ROTATION;
+		operation[m_insertIndex].xCoord=0;
+		operation[m_insertIndex].yCoord=0;
+		operation[m_insertIndex].distance=0;
+		operation[m_insertIndex].theta=theta;
+		operation[m_insertIndex].radius=radius;
+		m_insertIndex++;
+	}
+}
 void PathControl::setCommand(int type)
 {
-	/*switch(operation[executionIndex].typeOfCommand)
+	switch(operation[m_executionIndex].typeOfCommand)
 	{
+		case ABSOLUTE_ROTATION: 
+			//comando di rotazione assoluta richiamare il metodo 
+			//evaluate_absolute_rotation(float target_angle)
+			absolute_rotation.evaluate_absolute_rotation(operation[m_executionIndex].theta);
+			current_command= &absolute_rotation;
+			break;
+
+		case RELATIVE_ROTATION:
+			//comando di rotazione relativa richiamare il metodo
+			//set_rotation_target(float angular_target)
+			relative_rotation.set_rotation_target(operation[m_executionIndex].theta);
+			current_command=&relative_rotation;
+			break;
 	
-	}*/
+		case CIRCULAR_ROTATION:
+			//comando di rotazione circolare richiamare il metodo
+			//set_rotation_target(float angular_target, float radius)
+			circular_rotation.set_rotation_target(operation[m_executionIndex].theta,
+								operation[m_executionIndex].radius);
+			current_command=&circular_rotation;						
+			break;
+		default:
+			break;
+	}
+	
 }
 
 bool PathControl::isStop()

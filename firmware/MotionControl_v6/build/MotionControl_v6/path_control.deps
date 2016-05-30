@@ -5,7 +5,10 @@ build//MotionControl_v6/path_control.o: \
  ../libs/controllib/filter.h ../MotionControl_v6/kinematics.h \
  ../MotionControl_v6/geometry.h ../MotionControl_v6/time_defines.h \
  ../MotionControl_v6/timers.h ../MotionControl_v6/pwm.h \
- ../MotionControl_v6/position_control.h
+ ../MotionControl_v6/position_control.h \
+ ../MotionControl_v6/absolute_rotation.h \
+ ../MotionControl_v6/relative_rotation.h \
+ ../MotionControl_v6/circ_rotation.h
 
 ../MotionControl_v6/path_control.h:
 
@@ -30,3 +33,9 @@ build//MotionControl_v6/path_control.o: \
 ../MotionControl_v6/pwm.h:
 
 ../MotionControl_v6/position_control.h:
+
+../MotionControl_v6/absolute_rotation.h:
+
+../MotionControl_v6/relative_rotation.h:
+
+../MotionControl_v6/circ_rotation.h:
