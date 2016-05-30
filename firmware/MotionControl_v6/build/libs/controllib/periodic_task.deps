@@ -1,4 +1,0 @@
-build//libs/controllib/periodic_task.o: \
- ../libs/controllib/periodic_task.cpp ../libs/controllib/periodic_task.h
-
-../libs/controllib/periodic_task.h:

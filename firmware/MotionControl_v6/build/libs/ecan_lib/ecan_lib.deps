@@ -1,9 +1,0 @@
-build//libs/ecan_lib/ecan_lib.o: ../libs/ecan_lib/ecan_lib.c \
- ../libs/ecan_lib/ecan_config.h ../libs/ecan_lib/ecan_driver.h \
- ../libs/ecan_lib/ecan_lib.h
-
-../libs/ecan_lib/ecan_config.h:
-
-../libs/ecan_lib/ecan_driver.h:
-
-../libs/ecan_lib/ecan_lib.h:

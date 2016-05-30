@@ -1,9 +1,0 @@
-build//libs/controllib/pid.o: ../libs/controllib/pid.cpp \
- ../libs/controllib/pid.h ../libs/controllib/low_pass.h \
- ../libs/controllib/filter.h
-
-../libs/controllib/pid.h:
-
-../libs/controllib/low_pass.h:
-
-../libs/controllib/filter.h:

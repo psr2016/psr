@@ -1,6 +1,0 @@
-build//libs/ecan_lib/ecan_config.o: ../libs/ecan_lib/ecan_config.c \
- ../libs/ecan_lib/ecan_config.h ../libs/ecan_lib/ecan_driver.h
-
-../libs/ecan_lib/ecan_config.h:
-
-../libs/ecan_lib/ecan_driver.h:

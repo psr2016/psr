@@ -1,6 +1,0 @@
-build//libs/controllib/chebyshev.o: ../libs/controllib/chebyshev.cpp \
- ../libs/controllib/chebyshev.h ../libs/controllib/filter.h
-
-../libs/controllib/chebyshev.h:
-
-../libs/controllib/filter.h:

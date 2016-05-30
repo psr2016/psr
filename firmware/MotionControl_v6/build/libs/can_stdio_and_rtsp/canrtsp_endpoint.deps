@@ -1,9 +1,0 @@
-build//libs/can_stdio_and_rtsp/canrtsp_endpoint.o: \
- ../libs/can_stdio_and_rtsp/canrtsp_endpoint.c ../bus_objects.h \
- ../libs/ecan_lib/ecan_driver.h ../libs/ecan_lib/ecan_lib.h
-
-../bus_objects.h:
-
-../libs/ecan_lib/ecan_driver.h:
-
-../libs/ecan_lib/ecan_lib.h:
