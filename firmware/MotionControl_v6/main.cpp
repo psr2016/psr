@@ -71,6 +71,7 @@ int main()
 
     kinematics.on();
     can_pose_sender.on();
+    path_control.on();
 
     for (;;) {
 
