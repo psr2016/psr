@@ -7,8 +7,14 @@
 #include <math.h>
 
 
-PathControl::PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl,int size)
-	:PositionControl(kinem,speed_ctrl),m_size(size),m_executionIndex(-1),m_insertIndex(0),m_path_finish(0),m_block_cnt(0)
+PathControl::PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl)
+	:PeriodicTask("path_control", PATH_CONTROL_PERIOD, TIME_UNIT, PATH_CONTROL_JITTER), 
+	m_executionIndex(-1),
+	m_insertIndex(0),
+	m_path_finish(0),
+	m_block_cnt(0),
+	m_kinematics(kinem),
+        m_speed_control(speed_ctrl)
 {
 	
 }
@@ -33,7 +39,7 @@ void PathControl::run()
 		{
 			if(current_command!=NULL)
 			{
-				if(target_reached())
+				if(current_command->target_reached())
 				{
 					current_command->off();
 					m_executionIndex++;

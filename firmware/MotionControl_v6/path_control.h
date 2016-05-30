@@ -2,9 +2,9 @@
 #ifndef __PATHCONTROL_H
 #define __PATHCONTROL_H
 
-#include "periodic_task.h"
-#include "speed_control.h"
 #include "position_control.h"
+#include "speed_control.h"
+#include "periodic_task.h"
 #include "kinematics.h"
 
 #define PATH_SIZE 10
@@ -26,10 +26,10 @@ struct Command
 	float radius;
 };
 
-class PathControl : public PositionControl{
+class PathControl : public PeriodicTask{
 
 public:
-	PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl,int size);
+	PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl);
 	void run();
 	void addForward(int distance);
 	void addGoToPoint(int x,int y);
@@ -40,13 +40,14 @@ public:
 	bool isStop();
 	void abort();
 private:
-	int m_size;
 	int m_executionIndex;//indice comando in esecuzione
 	int m_insertIndex;//indice comando inserito
 	bool m_path_finish;
 	Command operation[PATH_SIZE];
-	PeriodicTask * current_command;
+	PositionControl * current_command;
 	int m_block_cnt;
+	Kinematics m_kinematics;
+        SpeedControlTask m_speed_control;
 };
 
 extern PathControl path_control;

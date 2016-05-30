@@ -93,7 +93,7 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
 
     case MOTION_COMMAND_STOP_AND_FREE:
         m_speed_controller.off();
-        relative_rotation.off();
+        path_control.abort();
         // if (obstacle_detected == false)
         // {
         //     robot_pos.position_control_state = CONTROL_OFF;
@@ -162,7 +162,7 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
         //if (obstacle_detected == false)
         {
             t_command_rotate_circular * p =  (t_command_rotate_circular *)m;
-            path_contro.addCircularRotation(p->degrees/10.0, p->x);
+            path_control.addCircularRotation(p->degrees/10.0, p->x);
         }
         break;
     }
