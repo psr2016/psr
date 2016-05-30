@@ -27,12 +27,15 @@ void PathControl::run()
 	}
 	else
 	{
-		if(m_executionIndex == -1)
+		if(m_executionIndex == -1 && m_insertIndex>0)
 		{
 
 			m_executionIndex++;
 			setCommand(operation[m_executionIndex].typeOfCommand);
-			current_command->on();
+			if (current_command!=NULL)
+				current_command->on();
+			else
+				abort();
 			
 		}
 		else
@@ -53,6 +56,7 @@ void PathControl::run()
 					else	m_path_finish=1;
 				}
 			}
+			else	abort();
 		}
 	}
 }
@@ -111,14 +115,14 @@ void PathControl::setCommand(int type)
 			//comando di rotazione assoluta richiamare il metodo
 			//evaluate_absolute_rotation(float target_angle)
 			absolute_rotation.evaluate_absolute_rotation(operation[m_executionIndex].theta);
-			current_command= &absolute_rotation;
+			current_command = &absolute_rotation;
 			break;
 
 		case RELATIVE_ROTATION:
 			//comando di rotazione relativa richiamare il metodo
 			//set_rotation_target(float angular_target)
 			relative_rotation.set_rotation_target(operation[m_executionIndex].theta);
-			current_command=&relative_rotation;
+			current_command = &relative_rotation;
 			break;
 	
 		case CIRCULAR_ROTATION:
@@ -126,7 +130,7 @@ void PathControl::setCommand(int type)
 			//set_rotation_target(float angular_target, float radius)
 			circular_rotation.set_rotation_target(operation[m_executionIndex].theta,
 								operation[m_executionIndex].radius);
-			current_command=&circular_rotation;						
+			current_command = &circular_rotation;						
 			break;
 		default:
 			break;
