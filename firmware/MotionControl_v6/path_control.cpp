@@ -109,7 +109,7 @@ void PathControl::addCircularRotation(float theta, float radius)
 }
 void PathControl::setCommand(int type)
 {
-	switch(operation[m_executionIndex].typeOfCommand)
+	switch(type)
 	{
 		case ABSOLUTE_ROTATION:
 			//comando di rotazione assoluta richiamare il metodo
