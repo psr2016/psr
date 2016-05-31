@@ -8,7 +8,7 @@
 
 
 PathControl::PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl)
-	:PeriodicTask("path_control", PATH_CONTROL_PERIOD, TIME_UNIT, PATH_CONTROL_JITTER), 
+	:PeriodicTask("path_control", PATH_CONTROL_PERIOD, TIME_UNIT, PATH_CONTROL_JITTER),
 	m_executionIndex(-1),
 	m_insertIndex(0),
 	m_path_finish(0),
@@ -55,7 +55,10 @@ void PathControl::run()
 							current_command->on();
 
 						}
-						else	m_path_finish=1;
+						else {
+                                                    m_path_finish=1;
+                                                    abort();
+                                                }
 					}
 				}
 				else	abort();
