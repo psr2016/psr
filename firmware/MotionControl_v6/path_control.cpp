@@ -48,14 +48,15 @@ void PathControl::run()
 					{
 						current_command->off();
 						m_executionIndex++;
-						if(m_executionIndex<PATH_SIZE)
+						if(m_executionIndex<m_insertIndex)
 						{
 
 							setCommand(operation[m_executionIndex].typeOfCommand);
 							current_command->on();
 
 						}
-						else {
+						else 
+						{
                                                     m_path_finish=1;
                                                     abort();
                                                 }
