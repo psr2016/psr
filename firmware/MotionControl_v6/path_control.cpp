@@ -21,42 +21,45 @@ PathControl::PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl)
 
 void PathControl::run()
 {
-	if(isStop())
+	if(m_insertIndex>0)
 	{
-		abort();
-	}
-	else
-	{
-		if(m_executionIndex == -1 && m_insertIndex>0)
+		if(isStop())
 		{
-
-			m_executionIndex++;
-			setCommand(operation[m_executionIndex].typeOfCommand);
-			if (current_command!=NULL)
-				current_command->on();
-			else
-				abort();
-			
+			abort();
 		}
 		else
 		{
-			if(current_command!=NULL)
+			if(m_executionIndex == -1 && m_insertIndex>0)
 			{
-				if(current_command->target_reached())
-				{
-					current_command->off();
-					m_executionIndex++;
-					if(m_executionIndex<PATH_SIZE)
-					{
 
-						setCommand(operation[m_executionIndex].typeOfCommand);
-						current_command->on();
-
-					}
-					else	m_path_finish=1;
-				}
+				m_executionIndex++;
+				setCommand(operation[m_executionIndex].typeOfCommand);
+				if (current_command!=NULL)
+					current_command->on();
+				else
+					abort();
+			
 			}
-			else	abort();
+			else
+			{
+				if(current_command!=NULL)
+				{
+					if(current_command->target_reached())
+					{
+						current_command->off();
+						m_executionIndex++;
+						if(m_executionIndex<PATH_SIZE)
+						{
+
+							setCommand(operation[m_executionIndex].typeOfCommand);
+							current_command->on();
+
+						}
+						else	m_path_finish=1;
+					}
+				}
+				else	abort();
+			}
 		}
 	}
 }
@@ -145,10 +148,7 @@ bool PathControl::isStop()
 	{
 		m_block_cnt++;
 		if(m_block_cnt==MAX_BLOCK)
-		{
-			//m_block_cnt=0;
 			return true;
-		}
 	}
         else
             m_block_cnt = 0;
@@ -159,8 +159,9 @@ bool PathControl::isStop()
 void PathControl::abort()
 {
 	//ferma il current command, set motors(0,0),riazzerare gli index per rifare gli add
-	m_speed_control.set_motors(0,0);	
-	current_command->off();
+	m_speed_control.set_motors(0,0);
+	if(current_command!=NULL)	
+		current_command->off();
 	m_executionIndex=-1;
 	m_insertIndex=0;
 }
