@@ -29,7 +29,7 @@ void PathControl::run()
 		}
 		else
 		{
-			if(m_executionIndex == -1 && m_insertIndex>0)
+			if(m_executionIndex == -1 && m_insertIndex>0)//eventualmente togliere la seconda condizione che è già controllata
 			{
 
 				m_executionIndex++;
