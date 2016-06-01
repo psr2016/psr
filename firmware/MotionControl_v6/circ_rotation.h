@@ -20,6 +20,7 @@ class CircularRotation : public PositionControl {
 	void run();
 	
  private:
+    float m_radius;
 	float m_radius_left, m_radius_right;
 	float m_angular_accel;
 	float m_angular_decel;

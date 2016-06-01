@@ -23,8 +23,14 @@ class SpeedControlTask : public PeriodicTask {
     int pwm_right() { return m_pwm_right;};
     void get_current_speeds(float & l, float & r) {
         l = m_kinematics.speed_left();
-        r = m_kinematics.speed_right();
+        r = m_kinematics.speed_right();	
+
     };
+    //aggiunto da Orlando e Ciccotta
+    float get_target_left(){return m_target_left;};
+    float get_target_right(){return m_target_right;};
+    //
+
  private:
     Kinematics & m_kinematics;
     int m_pwm_left, m_pwm_right;
