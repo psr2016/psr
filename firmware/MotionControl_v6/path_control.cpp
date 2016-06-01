@@ -9,7 +9,7 @@
 
 PathControl::PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl)
 	:PeriodicTask("path_control", PATH_CONTROL_PERIOD, TIME_UNIT, PATH_CONTROL_JITTER),
-	m_executionIndex(-1),
+	m_executionIndex(0),
 	m_insertIndex(0),
 	m_path_finish(0),
 	m_block_cnt(0),
@@ -21,51 +21,44 @@ PathControl::PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl)
 
 void PathControl::run()
 {
-	if(m_insertIndex>0)
+	if(m_insertIndex>0)//controllo se ci sono comandi inseriti in struct
 	{
-		if(isStop())
+		//comandi presenti nella struct
+		
+		if(current_command!=NULL)
 		{
-			abort();
+			//then ho già preso il comando
+			if(isStop())//controllo se ci sono le ruote bloccate
+			{
+				abort_and_getNext();//then ruote bloccate passo al comando successivo
+			}
+			else
+			{	if(current_command->target_reached())// controllo il terget del comando se è stato raggiunto
+				{	current_command->off();//spengo il comando
+					m_executionIndex++;//then passo al comando successivo
+					if(m_executionIndex<m_insertIndex)
+						setCommand(operation[m_executionIndex].typeOfCommand);
+					else
+					{
+						m_path_finish=1;
+						reset();
+					}
+				}
+			}
 		}
 		else
 		{
-			if(m_executionIndex == -1)
+			if(m_executionIndex<m_insertIndex)
 			{
-
-				m_executionIndex++;
 				setCommand(operation[m_executionIndex].typeOfCommand);
-				if (current_command!=NULL)
-					current_command->on();
-				else
-					reset();
-			
 			}
 			else
 			{
-				if(current_command!=NULL)
-				{
-					if(current_command->target_reached())
-					{
-						current_command->off();
-						m_executionIndex++;
-						if(m_executionIndex<m_insertIndex)
-						{
-
-							setCommand(operation[m_executionIndex].typeOfCommand);
-							current_command->on();
-
-						}
-						else 
-						{
-                                                    m_path_finish=1;
-                                                    reset();
-                                                }
-					}
-				}
-				else	reset();
+				m_path_finish=1;
+				reset();
 			}
 		}
-	}
+	}//else bypass del metodo run
 }
 
 //add specifico per ogni tipo di comando
@@ -166,14 +159,79 @@ void PathControl::reset()
 	m_speed_control.set_motors(0,0);	//spengo i motori
 	if(current_command!=NULL)	
 		current_command->off();		//spengo il comando
-	m_executionIndex=-1;			//reset di executionIndex
+	m_executionIndex=0;			//reset di executionIndex
 	m_insertIndex=0;			//reset di insertIndex
 }
 
-void PathControl::abort()
+void PathControl::abort_and_getNext()
 {
 	m_speed_control.set_motors(0,0);	//spegnere i motori
 	if(current_command!=NULL)	
-		current_command->off();		//incremento indice di execution
+		current_command->off();		
 	m_executionIndex++;
+	if(m_executionIndex<m_insertIndex)
+		setCommand(operation[m_executionIndex].typeOfCommand);
+	else
+	{
+		m_path_finish=1;
+		reset();
+	}
 }
+
+/*if(m_insertIndex>0)
+	{
+		if(isStop())
+		{
+			abort();
+		}
+		else
+		{
+			if(m_executionIndex == -1)
+			{
+
+				m_executionIndex++;
+				setCommand(operation[m_executionIndex].typeOfCommand);
+				if (current_command!=NULL)
+					current_command->on();
+				else
+					abort();
+			
+			}
+			else
+			{
+				if(current_command!=NULL)
+				{
+					if(current_command->target_reached())
+					{
+						current_command->off();
+						m_executionIndex++;
+						if(m_executionIndex<m_insertIndex)
+						{
+
+							setCommand(operation[m_executionIndex].typeOfCommand);
+							if(current_command!=NULL)
+								current_command->on();
+							else
+								abort();
+
+						}
+						else 
+						{
+                                                    m_path_finish=1;
+                                                    reset();
+                                                }
+					}
+				}
+				else	
+				{
+					if(m_executionIndex<m_insertIndex)
+					{
+						setComand(operation[m_executionIndex].typeOfCommand);
+						current_command->on();
+					}
+					else
+						reset();
+				}
+			}
+		}
+	}*/

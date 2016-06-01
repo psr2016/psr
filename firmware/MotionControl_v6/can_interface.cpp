@@ -93,7 +93,7 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
 
     case MOTION_COMMAND_STOP_AND_FREE:
         m_speed_controller.off();
-        path_control.abort();
+        //path_control.abort_and_getNext();
         // if (obstacle_detected == false)
         // {
         //     robot_pos.position_control_state = CONTROL_OFF;

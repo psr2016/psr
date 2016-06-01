@@ -38,8 +38,8 @@ public:
 	void addCircularRotation(float theta, float radius);
 	void setCommand(int type);
 	bool isStop();
-	void abort();
 	void reset();
+	void abort_and_getNext();
 private:
 	int m_executionIndex;//indice comando in esecuzione
 	int m_insertIndex;//indice comando inserito
