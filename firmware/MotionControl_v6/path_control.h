@@ -39,6 +39,7 @@ public:
 	void setCommand(int type);
 	bool isStop();
 	void abort();
+	void reset();
 private:
 	int m_executionIndex;//indice comando in esecuzione
 	int m_insertIndex;//indice comando inserito

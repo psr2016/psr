@@ -29,7 +29,7 @@ void PathControl::run()
 		}
 		else
 		{
-			if(m_executionIndex == -1 && m_insertIndex>0)//eventualmente togliere la seconda condizione che è già controllata
+			if(m_executionIndex == -1)
 			{
 
 				m_executionIndex++;
@@ -37,7 +37,7 @@ void PathControl::run()
 				if (current_command!=NULL)
 					current_command->on();
 				else
-					abort();
+					reset();
 			
 			}
 			else
@@ -58,11 +58,11 @@ void PathControl::run()
 						else 
 						{
                                                     m_path_finish=1;
-                                                    abort();
+                                                    reset();
                                                 }
 					}
 				}
-				else	abort();
+				else	reset();
 			}
 		}
 	}
@@ -160,12 +160,20 @@ bool PathControl::isStop()
 	return false;
 }
 
+void PathControl::reset()
+{
+	//reset del pathControll
+	m_speed_control.set_motors(0,0);	//spengo i motori
+	if(current_command!=NULL)	
+		current_command->off();		//spengo il comando
+	m_executionIndex=-1;			//reset di executionIndex
+	m_insertIndex=0;			//reset di insertIndex
+}
+
 void PathControl::abort()
 {
-	//ferma il current command, set motors(0,0),riazzerare gli index per rifare gli add
-	m_speed_control.set_motors(0,0);
+	m_speed_control.set_motors(0,0);	//spegnere i motori
 	if(current_command!=NULL)	
-		current_command->off();
-	m_executionIndex=-1;
-	m_insertIndex=0;
+		current_command->off();		//incremento indice di execution
+	m_executionIndex++;
 }
