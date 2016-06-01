@@ -14,7 +14,8 @@ class FollowLine: public PositionControl {
     void off() { m_on = false; };//TODO
     float evaluateLinearSpeed(Point & target, Pose & current_pose, float current_speed);
     float evaluateAngularSpeed();
-    float calcGamma();	
+    void evaluateVerse(Point & target, Pose & current_pose);
+    float calcGamma();
 private:
     Line m_line;
     Point m_target;
@@ -23,10 +24,12 @@ private:
     float m_accel_step;
     float m_vmax;
     float m_decel;
-    float m_dt;	
+    float m_dt;
     float m_next_speed;
     float m_decel_distance;
-    bool m_on;
+    float m_verse;
+    bool  m_target_reached;
+    bool  m_on;
 };
 
 
