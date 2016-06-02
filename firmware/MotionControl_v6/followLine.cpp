@@ -35,9 +35,7 @@ float FollowLine::evaluateAngularSpeed()
 
 void FollowLine::evaluateVerse(Point & target, Pose & current_pose)
 {
-  Point rp(current_pose.x(),current_pose.y());
-  current_pose.global_to_local(rp, target);
-  if (target.y() > 0)
+  if(((cos(current_pose.theta())*(target.x()-current_pose.x()))+(sin(current_pose.theta())*(target.y()-current_pose.y()))) > 0)
     m_verse = 1;
   else
     m_verse = -1;
