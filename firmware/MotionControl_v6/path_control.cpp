@@ -9,7 +9,7 @@
 
 PathControl::PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl)
 	:PeriodicTask("path_control", PATH_CONTROL_PERIOD, TIME_UNIT, PATH_CONTROL_JITTER),
-	m_executionIndex(0),
+	m_executionIndex(-1),
 	m_insertIndex(0),
 	m_path_finish(0),
 	m_block_cnt(0),
@@ -25,9 +25,8 @@ void PathControl::run()
 	{
 		//comandi presenti nella struct
 		
-		if(current_command!=NULL)
+		if(current_command!=NULL) //robot in funzione, sta eseguendo un comando
 		{
-			//then ho già preso il comando
 			if(isStop())//controllo se ci sono le ruote bloccate
 			{
 				abort_and_getNext();//then ruote bloccate passo al comando successivo
@@ -46,17 +45,17 @@ void PathControl::run()
 				}
 			}
 		}
-		else
+		else  //robot non sta eseguendo alcun comando
 		{
-			m_executionIndex++;
-			if(m_executionIndex<m_insertIndex)
+			m_executionIndex++;  //provo ad andare avanti 
+			if(m_executionIndex<m_insertIndex)  //se possibile
 			{
 				setCommand(operation[m_executionIndex].typeOfCommand);
 			}
-			else
+			else  //ho esaurito i comandi da esegure
 			{
-				m_path_finish=1;
-				reset();
+				m_path_finish=1;  // ho finito 
+				reset();	  //spengo i motori eresetto gli indici 
 			}
 		}
 	}//else bypass del metodo run
@@ -160,7 +159,7 @@ void PathControl::reset()
 	m_speed_control.set_motors(0,0);	//spengo i motori
 	if(current_command!=NULL)	
 		current_command->off();		//spengo il comando
-	m_executionIndex=0;			//reset di executionIndex
+	m_executionIndex=-1;			//reset di executionIndex
 	m_insertIndex=0;			//reset di insertIndex
 }
 
