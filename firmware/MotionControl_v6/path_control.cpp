@@ -48,6 +48,7 @@ void PathControl::run()
 		}
 		else
 		{
+			m_executionIndex++;
 			if(m_executionIndex<m_insertIndex)
 			{
 				setCommand(operation[m_executionIndex].typeOfCommand);
