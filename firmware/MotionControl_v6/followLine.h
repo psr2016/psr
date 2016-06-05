@@ -7,14 +7,15 @@
 class FollowLine: public PositionControl {
   public:
     FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl, Point & target, Point & pointForLine):
-      PositionControl(kinem, speed_ctrl), m_line(target, pointForLine), m_target(target) { };
-    bool target_reached();
+      PositionControl(kinem, speed_ctrl), m_line(target, pointForLine), m_target(target), m_target_reached(false)
+      { m_verse = evaluateVerse(target, kinem.pose()); };
+    bool target_reached() { return m_target_reached; }
     void run();
     void on() { m_on = true; };//TODO
     void off() { m_on = false; };//TODO
     float evaluateLinearSpeed(Point & target, Pose & current_pose, float current_speed);
     float evaluateAngularSpeed();
-    void evaluateVerse(Point & target, Pose & current_pose);
+    float evaluateVerse(Point & target, Pose & current_pose);
     float calcGamma();
 private:
     Line m_line;
@@ -28,6 +29,7 @@ private:
     float m_next_speed;
     float m_decel_distance;
     float m_verse;
+    float m_tolerance;
     bool  m_target_reached;
     bool  m_on;
 };

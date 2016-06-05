@@ -5,13 +5,20 @@
 #include "followLine.h"
 #include <math.h>
 
-bool FollowLine::target_reached()
-{
-    return false;//TODO
-}
-
 void FollowLine::run()
 {
+    if (m_target_reached) return;
+  
+    if ( (fabs( m_target.x() - m_kinematics.pose().x() ) < m_tolerance) && (fabs( m_target.y() - m_kinematics.pose().y() ) < m_tolerance) ) {
+	m_speed_control.set_targets(0, 0);
+	m_target_reached = true;
+	return;
+    }
+    
+    if ( ( m_verse * evaluateVerse(m_target, m_kinematics.pose()) ) < 0 ) {//controllo per vedere se abbiamo passato il punto
+	m_verse = -m_verse;
+    }
+    
     //TODO Controllare tutti i segni;
     float v_target_left = evaluateAngularSpeed();
     float v_target_right = -v_target_left;
@@ -33,26 +40,18 @@ float FollowLine::evaluateAngularSpeed()
         //TODO verificare se bisogna normalizzare l'angolo
 }
 
-void FollowLine::evaluateVerse(Point & target, Pose & current_pose)
+float FollowLine::evaluateVerse(Point & target, Pose & current_pose)
 {
-  if(((cos(current_pose.theta())*(target.x()-current_pose.x()))+(sin(current_pose.theta())*(target.y()-current_pose.y()))) > 0)
-    m_verse = 1;
-  else
-    m_verse = -1;
+    if(((cos(current_pose.theta())*(target.x()-current_pose.x()))+(sin(current_pose.theta())*(target.y()-current_pose.y()))) > 0)
+	return 1;
+    else
+	return -1;
 }
 
 float FollowLine::evaluateLinearSpeed(Point & target, Pose & current_pose, float current_speed)
 {
     Point current = Point(current_pose.x(), current_pose.y());
     float distance = target.getDistance(current);
-    float s;
-
-    if (distance < 0) {
-        s = -1;
-        distance = -distance;
-    }
-    else
-        s = 1;
 
     if (distance < m_decel_distance) {
         // fase 3
@@ -77,6 +76,5 @@ float FollowLine::evaluateLinearSpeed(Point & target, Pose & current_pose, float
         }
     }
 
-    //return s*m_next_speed;
     return m_verse * m_next_speed;
 }
