@@ -8,7 +8,7 @@
 #include "kinematics.h"
 
 #define PATH_SIZE 10
-#define DELTA 0.5
+#define DELTA 100  // 100 mm/s
 #define MAX_BLOCK 10
 
 //define per i comandi
