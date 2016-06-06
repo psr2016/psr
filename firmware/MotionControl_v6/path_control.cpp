@@ -161,6 +161,7 @@ void PathControl::reset()
 		current_command->off();		//spengo il comando
 	m_executionIndex=-1;			//reset di executionIndex
 	m_insertIndex=0;			//reset di insertIndex
+	current_command=NULL;
 }
 
 void PathControl::abort_and_getNext()
