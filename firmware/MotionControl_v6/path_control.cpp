@@ -47,6 +47,8 @@ void PathControl::run()
 		}
 		else  //robot non sta eseguendo alcun comando
 		{
+			if(m_executionIndex==-1)
+				m_path_finish=0;
 			m_executionIndex++;  //provo ad andare avanti 
 			if(m_executionIndex<m_insertIndex)  //se possibile
 			{
