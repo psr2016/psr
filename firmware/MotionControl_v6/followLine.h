@@ -17,6 +17,7 @@ class FollowLine: public PositionControl {
     float evaluateAngularSpeed();
     float evaluateVerse(Point & target, Pose & current_pose);
     float calcGamma();
+    float normalizeAngle(float x);
 private:
     Line m_line;
     Point m_target;
