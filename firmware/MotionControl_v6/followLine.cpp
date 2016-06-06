@@ -8,17 +8,17 @@
 void FollowLine::run()
 {
     if (m_target_reached) return;
-  
+
     if ( (fabs( m_target.x() - m_kinematics.pose().x() ) < m_tolerance) && (fabs( m_target.y() - m_kinematics.pose().y() ) < m_tolerance) ) {
 	m_speed_control.set_targets(0, 0);
 	m_target_reached = true;
 	return;
     }
-    
+
     if ( ( m_verse * evaluateVerse(m_target, m_kinematics.pose()) ) < 0 ) {//controllo per vedere se abbiamo passato il punto
 	m_verse = -m_verse;
     }
-    
+
     //TODO Controllare tutti i segni;
     float v_target_left = evaluateAngularSpeed();
     float v_target_right = -v_target_left;
@@ -33,19 +33,19 @@ float FollowLine::evaluateAngularSpeed()
 {
     float distance = m_line.getDistance(m_kinematics.pose().x(), m_kinematics.pose().y());
     if (m_verse > 0)
-        return (-kd * distance) + ( kh * (m_line.getDTheta() - m_kinematics.pose().theta()));
+        return (-kd * distance) + ( kh * normalizeAngle(m_line.getDTheta() - m_kinematics.pose().theta()));
     else
-        return (-kd * distance) + ( kh * (m_line.getDTheta() - (m_kinematics.pose().theta() + PI)));
+        return (-kd * distance) + ( kh * normalizeAngle(m_line.getDTheta() - (m_kinematics.pose().theta() + PI)));
         //TODO controllare se e' sufficiente aggiungere PI
         //TODO verificare se bisogna normalizzare l'angolo
 }
 
 float FollowLine::evaluateVerse(Point & target, Pose & current_pose)
 {
-    if(((cos(current_pose.theta())*(target.x()-current_pose.x()))+(sin(current_pose.theta())*(target.y()-current_pose.y()))) > 0)
-	return 1;
+    if(m_line.getDTheta() - current_pose.theta() < PI/2)
+	   return 1;
     else
-	return -1;
+	   return -1;
 }
 
 float FollowLine::evaluateLinearSpeed(Point & target, Pose & current_pose, float current_speed)
@@ -77,4 +77,11 @@ float FollowLine::evaluateLinearSpeed(Point & target, Pose & current_pose, float
     }
 
     return m_verse * m_next_speed;
+}
+
+float FollowLine::normalizeAngle(float x) {
+    x = fmod(x + PI,TWO_PI);
+    if (x < 0)
+        x += TWO_PI;
+    return x - PI;
 }
