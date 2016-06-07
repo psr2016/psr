@@ -47,8 +47,8 @@ private:
 	Command operation[PATH_SIZE];
 	PositionControl * current_command;
 	int m_block_cnt;
-	Kinematics m_kinematics;
-        SpeedControlTask m_speed_control;
+	Kinematics & m_kinematics;
+        SpeedControlTask & m_speed_control;
 };
 
 extern PathControl path_control;

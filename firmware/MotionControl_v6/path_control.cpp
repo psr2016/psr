@@ -12,6 +12,7 @@ PathControl::PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl)
 	m_executionIndex(-1),
 	m_insertIndex(0),
 	m_path_finish(0),
+	current_command(NULL),
 	m_block_cnt(0),
 	m_kinematics(kinem),
         m_speed_control(speed_ctrl)
@@ -144,6 +145,7 @@ bool PathControl::isStop()
 {
 	if(fabs(m_kinematics.speed_left()-m_speed_control.get_target_left())>DELTA ||
 		fabs(m_kinematics.speed_right()-m_speed_control.get_target_right())>DELTA)
+	
 	{
 		m_block_cnt++;
 		if(m_block_cnt==MAX_BLOCK)
@@ -151,7 +153,6 @@ bool PathControl::isStop()
 	}
         else
             m_block_cnt = 0;
-
 	return false;
 }
 
