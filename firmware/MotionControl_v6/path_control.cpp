@@ -1,7 +1,14 @@
+
+#include "defines.h"
+
+#include <p33FJ128MC802.h>
+
+
 #include "path_control.h"
 #include "absolute_rotation.h"
 #include "relative_rotation.h"
 #include "circ_rotation.h"
+#include "gpio.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
@@ -30,7 +37,8 @@ void PathControl::run()
 		{
 			if(isStop())//controllo se ci sono le ruote bloccate
 			{
-				abort_and_getNext();//then ruote bloccate passo al comando successivo
+                            led_on();
+                            reset();//then ruote bloccate passo al comando successivo
 			}
 			else
 			{	if(current_command->target_reached())// controllo il terget del comando se è stato raggiunto
@@ -50,15 +58,15 @@ void PathControl::run()
 		{
 			if(m_executionIndex==-1)
 				m_path_finish=0;
-			m_executionIndex++;  //provo ad andare avanti 
+			m_executionIndex++;  //provo ad andare avanti
 			if(m_executionIndex<m_insertIndex)  //se possibile
 			{
 				setCommand(operation[m_executionIndex].typeOfCommand);
 			}
 			else  //ho esaurito i comandi da esegure
 			{
-				m_path_finish=1;  // ho finito 
-				reset();	  //spengo i motori eresetto gli indici 
+				m_path_finish=1;  // ho finito
+				reset();	  //spengo i motori eresetto gli indici
 			}
 		}
 	}//else bypass del metodo run
@@ -119,6 +127,7 @@ void PathControl::setCommand(int type)
 			//evaluate_absolute_rotation(float target_angle)
 			absolute_rotation.evaluate_absolute_rotation(operation[m_executionIndex].theta);
 			current_command = &absolute_rotation;
+                        current_command->on();
 			break;
 
 		case RELATIVE_ROTATION:
@@ -126,6 +135,7 @@ void PathControl::setCommand(int type)
 			//set_rotation_target(float angular_target)
 			relative_rotation.set_rotation_target(operation[m_executionIndex].theta);
 			current_command = &relative_rotation;
+                        current_command->on();
 			break;
 	
 		case CIRCULAR_ROTATION:
@@ -134,6 +144,7 @@ void PathControl::setCommand(int type)
 			circular_rotation.set_rotation_target(operation[m_executionIndex].theta,
 								operation[m_executionIndex].radius);
 			current_command = &circular_rotation;						
+                        current_command->on();
 			break;
 		default:
 			break;
@@ -147,12 +158,20 @@ bool PathControl::isStop()
 		fabs(m_kinematics.speed_right()-m_speed_control.get_target_right())>DELTA)
 	
 	{
-		m_block_cnt++;
-		if(m_block_cnt==MAX_BLOCK)
-			return true;
+            m_block_cnt++;
+            if(m_block_cnt>=MAX_BLOCK) {
+                return true;
+            }
 	}
-        else
+        else 
+	{
+            led_off();
             m_block_cnt = 0;
+//<<<<<<< HEAD
+//=======
+        }
+
+//>>>>>>> 1eb8c2b4e323c9ed5cb60d8d003a49c2e8996caf
 	return false;
 }
 
@@ -164,10 +183,11 @@ void PathControl::reset()
 		current_command->off();		//spengo il comando
 	m_executionIndex=-1;			//reset di executionIndex
 	m_insertIndex=0;			//reset di insertIndex
+	m_block_cnt = 0;			//reset della variabile block_cnt
 	current_command=NULL;
 }
 
-void PathControl::abort_and_getNext()
+/*void PathControl::abort_and_getNext()
 {
 	m_speed_control.set_motors(0,0);	//spegnere i motori
 	if(current_command!=NULL)	
@@ -180,7 +200,7 @@ void PathControl::abort_and_getNext()
 		m_path_finish=1;
 		reset();
 	}
-}
+}*/
 
 /*if(m_insertIndex>0)
 	{
@@ -219,7 +239,7 @@ void PathControl::abort_and_getNext()
 								abort();
 
 						}
-						else 
+						else
 						{
                                                     m_path_finish=1;
                                                     reset();

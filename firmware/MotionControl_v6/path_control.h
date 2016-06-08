@@ -8,7 +8,7 @@
 #include "kinematics.h"
 
 #define PATH_SIZE 10
-#define DELTA 0.5
+#define DELTA 100  // 100 mm/s
 #define MAX_BLOCK 10
 
 //define per i comandi
@@ -39,7 +39,7 @@ public:
 	void setCommand(int type);
 	bool isStop();
 	void reset();
-	void abort_and_getNext();
+	//void abort_and_getNext();
 private:
 	int m_executionIndex;//indice comando in esecuzione
 	int m_insertIndex;//indice comando inserito

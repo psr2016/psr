@@ -7,6 +7,7 @@
 #include "time_defines.h"
 #include "canstdio_endpoint.h"
 #include "path_control.h"
+#include "absolute_rotation.h"
 #include "gpio.h"
 
 extern CanPoseSender  can_pose_sender;
@@ -203,8 +204,10 @@ void CanSpeedSender::run()
     m_speed_controller.get_current_speeds(l, r);
     vel.left_speed = (short)l;
     vel.right_speed = (short)r;
-    vel.left_pwm = (short)m_speed_controller.pwm_left();
-    vel.right_pwm = (short)m_speed_controller.pwm_right();
+    //vel.left_pwm = (short)m_speed_controller.pwm_left();
+    //vel.right_pwm = (short)m_speed_controller.pwm_right();
+    vel.left_pwm = (short)m_speed_controller.get_target_left();
+    vel.right_pwm = (short)m_speed_controller.get_target_right();
     ecan_send(ROBOT_WHEELS_VELOCITY_CAN_ID, (unsigned char *)&vel, 8, 0);
 }
 
