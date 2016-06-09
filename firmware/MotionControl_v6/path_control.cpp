@@ -18,7 +18,7 @@ PathControl::PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl)
 	:PeriodicTask("path_control", PATH_CONTROL_PERIOD, TIME_UNIT, PATH_CONTROL_JITTER),
 	m_executionIndex(-1),
 	m_insertIndex(0),
-	m_path_finish(0),
+	m_path_status(PATH_FINISH),
 	current_command(NULL),
 	m_block_cnt(0),
 	m_kinematics(kinem),
@@ -43,12 +43,12 @@ void PathControl::run()
 			else
 			{	if(current_command->target_reached())// controllo il terget del comando se è stato raggiunto
 				{	current_command->off();//spengo il comando
+					m_path_status=PATH_FINISH;
 					m_executionIndex++;//then passo al comando successivo
 					if(m_executionIndex<m_insertIndex)
 						setCommand(operation[m_executionIndex].typeOfCommand);
 					else
 					{
-						m_path_finish=1;
 						reset();
 					}
 				}
@@ -56,8 +56,8 @@ void PathControl::run()
 		}
 		else  //robot non sta eseguendo alcun comando
 		{
-			if(m_executionIndex==-1)
-				m_path_finish=0;
+			//if(m_executionIndex==-1)
+				//m_path_status=PATH_FINISH;
 			m_executionIndex++;  //provo ad andare avanti
 			if(m_executionIndex<m_insertIndex)  //se possibile
 			{
@@ -65,8 +65,8 @@ void PathControl::run()
 			}
 			else  //ho esaurito i comandi da esegure
 			{
-				m_path_finish=1;  // ho finito
-				reset();	  //spengo i motori eresetto gli indici
+				// ho finito
+				reset();
 			}
 		}
 	}//else bypass del metodo run
@@ -128,6 +128,7 @@ void PathControl::setCommand(int type)
 			absolute_rotation.evaluate_absolute_rotation(operation[m_executionIndex].theta);
 			current_command = &absolute_rotation;
                         current_command->on();
+			m_path_status=PATH_BUSY;
 			break;
 
 		case RELATIVE_ROTATION:
@@ -136,6 +137,7 @@ void PathControl::setCommand(int type)
 			relative_rotation.set_rotation_target(operation[m_executionIndex].theta);
 			current_command = &relative_rotation;
                         current_command->on();
+			m_path_status=PATH_BUSY;
 			break;
 	
 		case CIRCULAR_ROTATION:
@@ -145,8 +147,10 @@ void PathControl::setCommand(int type)
 								operation[m_executionIndex].radius);
 			current_command = &circular_rotation;						
                         current_command->on();
+			m_path_status=PATH_BUSY;
 			break;
 		default:
+			m_path_status=PATH_FINISH;
 			break;
 	}
 	
@@ -167,95 +171,29 @@ bool PathControl::isStop()
 	{
             led_off();
             m_block_cnt = 0;
-//<<<<<<< HEAD
-//=======
         }
-
-//>>>>>>> 1eb8c2b4e323c9ed5cb60d8d003a49c2e8996caf
 	return false;
 }
 
 void PathControl::reset()
 {
 	//reset del pathControll
-	m_speed_control.set_motors(0,0);	//spengo i motori
-	if(current_command!=NULL)	
-		current_command->off();		//spengo il comando
-	m_executionIndex=-1;			//reset di executionIndex
-	m_insertIndex=0;			//reset di insertIndex
-	m_block_cnt = 0;			//reset della variabile block_cnt
-	current_command=NULL;
-}
-
-/*void PathControl::abort_and_getNext()
-{
-	m_speed_control.set_motors(0,0);	//spegnere i motori
+	//spengo i motori
+	m_speed_control.set_motors(0,0);
+	
+	//spengo il comando
 	if(current_command!=NULL)	
 		current_command->off();		
-	m_executionIndex++;
-	if(m_executionIndex<m_insertIndex)
-		setCommand(operation[m_executionIndex].typeOfCommand);
+
+	//reset di executionIndex, inserIndex
+	m_executionIndex=-1;	
+	m_insertIndex=0;			
+	//set status 
+	if(m_block_cnt>=MAX_BLOCK)		
+		m_path_status=PATH_BLOCKED;
 	else
-	{
-		m_path_finish=1;
-		reset();
-	}
-}*/
+		m_path_status=PATH_FINISH;
 
-/*if(m_insertIndex>0)
-	{
-		if(isStop())
-		{
-			abort();
-		}
-		else
-		{
-			if(m_executionIndex == -1)
-			{
-
-				m_executionIndex++;
-				setCommand(operation[m_executionIndex].typeOfCommand);
-				if (current_command!=NULL)
-					current_command->on();
-				else
-					abort();
-			
-			}
-			else
-			{
-				if(current_command!=NULL)
-				{
-					if(current_command->target_reached())
-					{
-						current_command->off();
-						m_executionIndex++;
-						if(m_executionIndex<m_insertIndex)
-						{
-
-							setCommand(operation[m_executionIndex].typeOfCommand);
-							if(current_command!=NULL)
-								current_command->on();
-							else
-								abort();
-
-						}
-						else
-						{
-                                                    m_path_finish=1;
-                                                    reset();
-                                                }
-					}
-				}
-				else	
-				{
-					if(m_executionIndex<m_insertIndex)
-					{
-						setComand(operation[m_executionIndex].typeOfCommand);
-						current_command->on();
-					}
-					else
-						reset();
-				}
-			}
-		}
-	}*/
+	m_block_cnt = 0;			
+	current_command=NULL;
+}

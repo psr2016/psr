@@ -10,6 +10,9 @@
 #define PATH_SIZE 10
 #define DELTA 100  // 100 mm/s
 #define MAX_BLOCK 10
+#define PATH_FINISH 0
+#define PATH_BUSY 1
+#define PATH_BLOCKED -1
 
 //define per i comandi
 #define ABSOLUTE_ROTATION 1
@@ -43,7 +46,7 @@ public:
 private:
 	int m_executionIndex;//indice comando in esecuzione
 	int m_insertIndex;//indice comando inserito
-	bool m_path_finish;
+	bool m_path_status;
 	Command operation[PATH_SIZE];
 	PositionControl * current_command;
 	int m_block_cnt;
