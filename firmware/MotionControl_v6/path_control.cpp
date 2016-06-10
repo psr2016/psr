@@ -49,14 +49,14 @@ void PathControl::run()
 						setCommand(operation[m_executionIndex].typeOfCommand);
 					else
 					{
-						reset();
+						reset(); //ho finito i comandi
 					}
 				}
 			}
 		}
 		else  //robot non sta eseguendo alcun comando
 		{
-			//if(m_executionIndex==-1)
+			//if(m_executionIndex==-1;)
 				//m_path_status=PATH_FINISH;
 			m_executionIndex++;  //provo ad andare avanti
 			if(m_executionIndex<m_insertIndex)  //se possibile
@@ -148,6 +148,15 @@ void PathControl::setCommand(int type)
 			current_command = &circular_rotation;						
                         current_command->on();
 			m_path_status=PATH_BUSY;
+			break;
+		case FOLLOW_LINE:
+			//comando di follow line richiamare il metodo
+			//set_qualcosa.......................
+
+			//metodo.....			
+			//current_command=&follow_line;
+			current_command->on();			
+			m_path_status=PATH_BUSY;			
 			break;
 		default:
 			m_path_status=PATH_FINISH;

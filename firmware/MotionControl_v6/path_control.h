@@ -18,6 +18,7 @@
 #define ABSOLUTE_ROTATION 1
 #define RELATIVE_ROTATION 2
 #define CIRCULAR_ROTATION 3
+#define FOLLOW_LINE 4
 
 struct Command
 {
@@ -42,7 +43,6 @@ public:
 	void setCommand(int type);
 	bool isStop();
 	void reset();
-	//void abort_and_getNext();
 private:
 	int m_executionIndex;//indice comando in esecuzione
 	int m_insertIndex;//indice comando inserito
