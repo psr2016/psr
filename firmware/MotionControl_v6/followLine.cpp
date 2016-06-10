@@ -5,10 +5,8 @@
 #include "followLine.h"
 #include <math.h>
 
-FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl, Point & target, Point & pointForLine)
+FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl)
       : PositionControl(kinem, speed_ctrl),
-	m_line(target, pointForLine),
-	m_target(target), 
 	kd(0.4),
 	kh(0.8),
 	m_accel(0.3),
@@ -21,7 +19,14 @@ FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl, Point 
 {
     m_accel_step = m_accel * m_dt;
     m_decel_distance = (m_vmax * m_vmax) / (2 * m_decel);
-    m_direction = evaluateDirection(target, kinem.pose()); 
+}
+
+void FollowLine::set_target(float xT, float yT, float xS, float yS)
+{
+    m_target = Point(xT, yT);
+    Point m_startLine(xT, yT);
+    m_line.set_line(m_target, m_startLine);
+    m_direction = evaluateDirection(m_target, m_kinematics.pose());
 }
 
 void FollowLine::run()

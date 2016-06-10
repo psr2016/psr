@@ -6,7 +6,7 @@
 
 class FollowLine: public PositionControl {
   public:
-    FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl, Point & target, Point & pointForLine);
+    FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl);
     bool target_reached() { return m_target_reached; }
     void run();
     float evaluateLinearSpeed(Point & target, Pose & current_pose, float current_speed);
@@ -14,6 +14,7 @@ class FollowLine: public PositionControl {
     float evaluateDirection(Point & target, Pose & current_pose);
     float calcGamma();
     float normalizeAngle(float x);
+    void set_target(float xT, float yT, float xS, float yS);
 private:
     Line m_line;
     Point m_target;

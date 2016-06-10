@@ -29,7 +29,7 @@ void Pose::global_to_local(Point & global_point, Point & robot_local)
     robot_local.y(- dx * sin_t + dy * cos_t);
 }
 
-Line::Line(Point & target, Point & pointForLine)
+void Line::set_line(Point & target, Point & pointForLine)
 {
     a = target.y() - pointForLine.y();
     b = target.x() - pointForLine.x();
