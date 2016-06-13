@@ -6,9 +6,9 @@
 #include <stdlib.h>
 #include "geometry.h"
 
-float Point::getDistance(Point & point)
+float Point::getDistance(float x, float y)
 {
-    return sqrt(pow(m_x - point.x(), 2) + pow(m_y - point.y(), 2));
+    return sqrt(pow(m_x - x, 2) + pow(m_y - y, 2));
 }
 
 void Pose::local_to_global(Point & robot_local, Point & global_point)

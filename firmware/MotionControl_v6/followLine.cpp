@@ -15,7 +15,8 @@ FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl)
 	m_dt(5),
 	m_next_speed(0),
 	m_tolerance(30),
-	m_target_reached(false)
+	m_target_reached(false),
+	m_two_step(false)
 {
     m_accel_step = m_accel * m_dt;
     m_decel_distance = (m_vmax * m_vmax) / (2 * m_decel);
@@ -24,9 +25,29 @@ FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl)
 void FollowLine::set_target(float xT, float yT, float xS, float yS)
 {
     m_target = Point(xT, yT);
-    Point m_startLine(xT, yT);
-    m_line.set_line(m_target, m_startLine);
-    m_direction = evaluateDirection(m_target, m_kinematics.pose());
+    
+    if ( isTooClose() ) {
+	Point m_startLine(m_kinematics.pose().x(), m_kinematics.pose().y());
+	m_line.set_line(m_target, m_startLine);
+	m_two_step = true;
+    } else {
+	Point m_startLine(xS, yS);
+	m_line.set_line(m_target, m_startLine);
+    }
+    
+    m_direction = evaluateDirection();
+}
+
+bool FollowLine::isTooClose() {
+  
+    float angularError = fabs(evaluateAngularSpeed());
+    float distance = m_target.getDistance(m_kinematics.pose().x(), m_kinematics.pose().y());
+    
+    if ( angularError > 10 && distance < 10 ) { //TODO settare un parametro opportuno, verificare sul campo
+	return true;
+    }
+    
+    return false;
 }
 
 void FollowLine::run()
@@ -39,17 +60,22 @@ void FollowLine::run()
 	return;
     }
 
-    if ( ( m_direction * evaluateDirection(m_target, m_kinematics.pose()) ) < 0 ) {//controllo per vedere se abbiamo passato il punto
+    if ( ( m_direction * evaluateDirection() ) < 0 ) {//controllo per vedere se abbiamo passato il punto
 	m_direction = -m_direction;
     }
 
     //TODO Controllare tutti i segni;
     float v_target_left = evaluateAngularSpeed();
     float v_target_right = -v_target_left;
-    float v_target = evaluateLinearSpeed(m_target, m_kinematics.pose(), m_kinematics.speed_left() - m_kinematics.speed_right());
-    //TODO controllare se la somma va in saturazione
-    v_target_left += v_target;
-    v_target_right += v_target;
+    
+    if ( !m_two_step || fabs(v_target_left) < 10 ) { //TODO settare un parametro opportuno, verificare sul campo
+      
+      float v_target = evaluateLinearSpeed();
+      //TODO controllare se la somma va in saturazione
+      v_target_left += v_target;
+      v_target_right += v_target;
+      
+    }
     m_speed_control.set_targets(v_target_left, v_target_right);
 }
 
@@ -64,18 +90,18 @@ float FollowLine::evaluateAngularSpeed()
         //TODO verificare se bisogna normalizzare l'angolo
 }
 
-float FollowLine::evaluateDirection(Point & target, Pose & current_pose)
+float FollowLine::evaluateDirection()
 {
-    if(m_line.getDTheta() - current_pose.theta() < PI/2)
+    if(m_line.getDTheta() - m_kinematics.pose().theta() < PI/2)
 	 return 1;
     else
 	 return -1;
 }
 
-float FollowLine::evaluateLinearSpeed(Point & target, Pose & current_pose, float current_speed)
+float FollowLine::evaluateLinearSpeed()
 {
-    Point current = Point(current_pose.x(), current_pose.y());
-    float distance = target.getDistance(current);
+    float current_speed = m_kinematics.speed_left() - m_kinematics.speed_right();
+    float distance = m_target.getDistance(m_kinematics.pose().x(), m_kinematics.pose().y());
 
     if (distance < m_decel_distance) {
         // fase 3

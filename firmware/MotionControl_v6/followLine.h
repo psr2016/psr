@@ -9,12 +9,13 @@ class FollowLine: public PositionControl {
     FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl);
     bool target_reached() { return m_target_reached; }
     void run();
-    float evaluateLinearSpeed(Point & target, Pose & current_pose, float current_speed);
+    float evaluateLinearSpeed();
     float evaluateAngularSpeed();
-    float evaluateDirection(Point & target, Pose & current_pose);
+    float evaluateDirection();
     float calcGamma();
     float normalizeAngle(float x);
     void set_target(float xT, float yT, float xS, float yS);
+    bool isTooClose();
 private:
     Line m_line;
     Point m_target;
@@ -28,7 +29,8 @@ private:
     float m_decel_distance;
     float m_direction;
     float m_tolerance;
-    bool  m_target_reached;
+    bool m_target_reached;
+    bool m_two_step;
 };
 
 

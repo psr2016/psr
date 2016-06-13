@@ -27,7 +27,7 @@ class Point {
     float y() { return m_y; };
     void x(float _x) { m_x = _x; };
     void y(float _y) { m_y = _y; };
-    float getDistance( Point & point );
+    float getDistance( float x, float y );
     void operator+=(Point & p) { m_x += p.m_x; m_y += p.m_y;};
 
  private:
