@@ -36,7 +36,7 @@ public:
 	PathControl(Kinematics & kinem, SpeedControlTask & speed_ctrl);
 	void run();
 	void addForward(int distance);
-	void addGoToPoint(int x,int y);
+	void addFollowLine(int x,int y);
 	void addAbsRotation(float theta);
 	void addRelRotation(float theta);
 	void addCircularRotation(float theta, float radius);

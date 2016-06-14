@@ -75,7 +75,19 @@ void PathControl::run()
 //add specifico per ogni tipo di comando
 void PathControl::addForward(int distance){}
 
-void PathControl::addGoToPoint(int x,int y){}
+void PathControl::addFollowLine(int x,int y)
+{
+	if(m_insertIndex<PATH_SIZE)
+	{
+		operation[m_insertIndex].typeOfCommand=FOLLOW_LINE;
+		operation[m_insertIndex].xCoord=x;
+		operation[m_insertIndex].yCoord=y;
+		operation[m_insertIndex].distance=0;
+		operation[m_insertIndex].theta=0;
+		operation[m_insertIndex].radius=0;
+		m_insertIndex++;
+	}
+}
 
 void PathControl::addAbsRotation(float theta)
 {
@@ -152,10 +164,14 @@ void PathControl::setCommand(int type)
 		case FOLLOW_LINE:
 			//comando di follow line richiamare il metodo
 			//set_qualcosa.......................
-
+			//float x_start=0.0;
+			//x_start=m_kinematics.pose().x();
+			//float y_start=0.0;
+			//y_start=m_kinematics.pose().y();
+			//set_target(x,y,x_start,y_start);
 			//metodo.....			
 			//current_command=&follow_line;
-			current_command->on();			
+			//current_command->on();			
 			m_path_status=PATH_BUSY;			
 			break;
 		default:
