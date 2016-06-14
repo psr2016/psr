@@ -29,6 +29,7 @@ class Kinematics : public PeriodicTask {
     float angular_speed() { return m_angular_speed; };
     float wheelbase() { return m_wheelbase; };
     float angular_distance() { return m_angular_distance; };
+    float linear_speed() { return m_linear_speed; };
     void set_angular_distance(float angular_distance) { m_angular_distance = angular_distance; };
 
  private:

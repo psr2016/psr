@@ -11,7 +11,7 @@ FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl)
 	kh(100.0),
 	m_accel(600),
 	m_vmax(600),
-	m_decel(600),	//TODO ricontrollare;
+	m_decel(600),
 	m_next_speed(0),
 	m_tolerance(30),
 	m_target_reached(false),
@@ -101,7 +101,7 @@ float FollowLine::evaluateDirection()
 
 float FollowLine::evaluateLinearSpeed()
 {
-    float current_speed = m_kinematics.speed_left() - m_kinematics.speed_right();
+    float current_speed = m_kinematics.linear_speed();
     float distance = m_target.getDistance(m_kinematics.pose().x(), m_kinematics.pose().y());
 
     if (distance < m_decel_distance) {
@@ -137,9 +137,4 @@ float FollowLine::normalizeAngle(float a)
     if (a < -PI)
         a = a + TWO_PI;
     return a;
-
-    // x = fmod(x + PI,TWO_PI);
-    // if (x < 0)
-    //     x += TWO_PI;
-    // return x - PI;
 }
