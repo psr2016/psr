@@ -132,6 +132,9 @@ void PathControl::addCircularRotation(float theta, float radius)
 }
 void PathControl::setCommand(int type)
 {
+	float x_start=0.0;
+	float y_start=0.0;
+	
 	switch(type)
 	{
 		case ABSOLUTE_ROTATION:
@@ -164,14 +167,12 @@ void PathControl::setCommand(int type)
 		case FOLLOW_LINE:
 			//comando di follow line richiamare il metodo
 			//set_qualcosa.......................
-			//float x_start=0.0;
-			//x_start=m_kinematics.pose().x();
-			//float y_start=0.0;
-			//y_start=m_kinematics.pose().y();
+			x_start=m_kinematics.pose().x();
+			y_start=m_kinematics.pose().y();
 			//set_target(x,y,x_start,y_start);
 			//metodo.....			
 			//current_command=&follow_line;
-			//current_command->on();			
+			current_command->on();			
 			m_path_status=PATH_BUSY;			
 			break;
 		default:
