@@ -7,25 +7,24 @@
 
 FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl)
       : PositionControl(kinem, speed_ctrl),
-	kd(0.4),
-	kh(0.8),
-	m_accel(0.3),
-	m_vmax(1),
-	m_decel(0.3),	//TODO ricontrollare;
-	m_dt(5),
+	kd(10.0),
+	kh(100.0),
+	m_accel(600),
+	m_vmax(600),
+	m_decel(600),	//TODO ricontrollare;
 	m_next_speed(0),
 	m_tolerance(30),
 	m_target_reached(false),
 	m_two_step(false)
 {
-    m_accel_step = m_accel * m_dt;
+    m_accel_step = m_accel * m_real_time_period;
     m_decel_distance = (m_vmax * m_vmax) / (2 * m_decel);
 }
 
 void FollowLine::set_target(float xT, float yT, float xS, float yS)
 {
     m_target = Point(xT, yT);
-    
+
     if ( isTooClose() ) {
 	Point m_startLine(m_kinematics.pose().x(), m_kinematics.pose().y());
 	m_line.set_line(m_target, m_startLine);
@@ -33,20 +32,22 @@ void FollowLine::set_target(float xT, float yT, float xS, float yS)
     } else {
 	Point m_startLine(xS, yS);
 	m_line.set_line(m_target, m_startLine);
+	m_two_step = false;
     }
-    
+
     m_direction = evaluateDirection();
+    m_target_reached = false;
 }
 
 bool FollowLine::isTooClose() {
-  
+
     float angularError = fabs(evaluateAngularSpeed());
     float distance = m_target.getDistance(m_kinematics.pose().x(), m_kinematics.pose().y());
-    
+
     if ( angularError > 10 && distance < 10 ) { //TODO settare un parametro opportuno, verificare sul campo
 	return true;
     }
-    
+
     return false;
 }
 
@@ -67,14 +68,14 @@ void FollowLine::run()
     //TODO Controllare tutti i segni;
     float v_target_left = evaluateAngularSpeed();
     float v_target_right = -v_target_left;
-    
+
     if ( !m_two_step || fabs(v_target_left) < 10 ) { //TODO settare un parametro opportuno, verificare sul campo
-      
+
       float v_target = evaluateLinearSpeed();
       //TODO controllare se la somma va in saturazione
       v_target_left += v_target;
       v_target_right += v_target;
-      
+
     }
     m_speed_control.set_targets(v_target_left, v_target_right);
 }
@@ -92,7 +93,7 @@ float FollowLine::evaluateAngularSpeed()
 
 float FollowLine::evaluateDirection()
 {
-    if(m_line.getDTheta() - m_kinematics.pose().theta() < PI/2)
+    if(fabs(m_line.getDTheta() - m_kinematics.pose().theta()) < PI/2)
 	 return 1;
     else
 	 return -1;
@@ -129,9 +130,16 @@ float FollowLine::evaluateLinearSpeed()
     return m_direction * m_next_speed;
 }
 
-float FollowLine::normalizeAngle(float x) {
-    x = fmod(x + PI,TWO_PI);
-    if (x < 0)
-        x += TWO_PI;
-    return x - PI;
+float FollowLine::normalizeAngle(float a)
+{
+    if (a > PI)
+        a = a - TWO_PI;
+    if (a < -PI)
+        a = a + TWO_PI;
+    return a;
+
+    // x = fmod(x + PI,TWO_PI);
+    // if (x < 0)
+    //     x += TWO_PI;
+    // return x - PI;
 }

@@ -40,9 +40,11 @@ public:
 	void addAbsRotation(float theta);
 	void addRelRotation(float theta);
 	void addCircularRotation(float theta, float radius);
+        void addFollowline(int x,int y);
 	void setCommand(int type);
 	bool isStop();
 	void reset();
+        int get_status() { return m_path_status; };
 private:
 	int m_executionIndex;//indice comando in esecuzione
 	int m_insertIndex;//indice comando inserito

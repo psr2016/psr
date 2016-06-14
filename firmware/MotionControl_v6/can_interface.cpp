@@ -166,6 +166,13 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
             path_control.addCircularRotation(p->degrees/10.0, p->x);
         }
         break;
+    case MOTION_COMMAND_LINE_TO_POINT:
+        {
+            t_command_line_to_point * p =  (t_command_line_to_point *)m;
+            path_control.addFollowline(p->x, p->y);
+        }
+        break;
+
     }
 }
 
@@ -183,6 +190,8 @@ void CanPoseSender::run()
     pos.x = m_robot_pose.x();
     pos.y = m_robot_pose.y();
     pos.deg100 = TO_DEGREES(m_robot_pose.theta()) * 100;
+    switch (path_control.get_status()) {
+    }
     pos.flags = 0;//robot_pos.path_done | (robot_pos.motor_locked << 1) | (robot_pos.position_valid << 2);
     pos.bumpers = (!bumper_1) | ((!bumper_2) << 1);
     ecan_send(ROBOT_POSITION_CAN_ID, (unsigned char *)&pos, 8, 0);

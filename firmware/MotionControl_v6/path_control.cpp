@@ -8,6 +8,7 @@
 #include "absolute_rotation.h"
 #include "relative_rotation.h"
 #include "circ_rotation.h"
+#include "followLine.h"
 #include "gpio.h"
 #include <stdbool.h>
 #include <stdio.h>
@@ -77,6 +78,20 @@ void PathControl::addForward(int distance){}
 
 void PathControl::addGoToPoint(int x,int y){}
 
+void PathControl::addFollowline(int x,int y)
+{
+	if(m_insertIndex<PATH_SIZE)
+	{
+		operation[m_insertIndex].typeOfCommand=FOLLOW_LINE;
+		operation[m_insertIndex].xCoord=x;
+		operation[m_insertIndex].yCoord=y;
+		operation[m_insertIndex].distance=0;
+		operation[m_insertIndex].theta=0;
+		operation[m_insertIndex].radius=0;
+		m_insertIndex++;
+	}
+}
+
 void PathControl::addAbsRotation(float theta)
 {
 	if(m_insertIndex<PATH_SIZE)
@@ -120,47 +135,50 @@ void PathControl::addCircularRotation(float theta, float radius)
 }
 void PathControl::setCommand(int type)
 {
-	switch(type)
+    switch(type)
 	{
-		case ABSOLUTE_ROTATION:
-			//comando di rotazione assoluta richiamare il metodo
-			//evaluate_absolute_rotation(float target_angle)
-			absolute_rotation.evaluate_absolute_rotation(operation[m_executionIndex].theta);
-			current_command = &absolute_rotation;
-                        current_command->on();
-			m_path_status=PATH_BUSY;
-			break;
+        case ABSOLUTE_ROTATION:
+            //comando di rotazione assoluta richiamare il metodo
+            //evaluate_absolute_rotation(float target_angle)
+            absolute_rotation.evaluate_absolute_rotation(operation[m_executionIndex].theta);
+            current_command = &absolute_rotation;
+            current_command->on();
+            m_path_status=PATH_BUSY;
+            break;
 
-		case RELATIVE_ROTATION:
-			//comando di rotazione relativa richiamare il metodo
-			//set_rotation_target(float angular_target)
-			relative_rotation.set_rotation_target(operation[m_executionIndex].theta);
-			current_command = &relative_rotation;
-                        current_command->on();
-			m_path_status=PATH_BUSY;
-			break;
+        case RELATIVE_ROTATION:
+            //comando di rotazione relativa richiamare il metodo
+            //set_rotation_target(float angular_target)
+            relative_rotation.set_rotation_target(operation[m_executionIndex].theta);
+            current_command = &relative_rotation;
+            current_command->on();
+            m_path_status=PATH_BUSY;
+            break;
 	
-		case CIRCULAR_ROTATION:
-			//comando di rotazione circolare richiamare il metodo
-			//set_rotation_target(float angular_target, float radius)
-			circular_rotation.set_rotation_target(operation[m_executionIndex].theta,
-								operation[m_executionIndex].radius);
-			current_command = &circular_rotation;						
-                        current_command->on();
-			m_path_status=PATH_BUSY;
-			break;
-		case FOLLOW_LINE:
-			//comando di follow line richiamare il metodo
-			//set_qualcosa.......................
+        case CIRCULAR_ROTATION:
+            //comando di rotazione circolare richiamare il metodo
+            //set_rotation_target(float angular_target, float radius)
+            circular_rotation.set_rotation_target(operation[m_executionIndex].theta,
+                                                  operation[m_executionIndex].radius);
+            current_command = &circular_rotation;						
+            current_command->on();
+            m_path_status=PATH_BUSY;
+            break;
+        case FOLLOW_LINE:
+            //comando di follow line richiamare il metodo
 
-			//metodo.....			
-			//current_command=&follow_line;
-			current_command->on();			
-			m_path_status=PATH_BUSY;			
-			break;
-		default:
-			m_path_status=PATH_FINISH;
-			break;
+            follow_line.set_target(operation[m_executionIndex].xCoord,
+                                   operation[m_executionIndex].yCoord,
+                                   m_kinematics.pose().x(),
+                                   m_kinematics.pose().y());
+
+            current_command=&follow_line;
+            current_command->on();			
+            m_path_status=PATH_BUSY;			
+            break;
+        default:
+            m_path_status=PATH_FINISH;
+            break;
 	}
 	
 }
@@ -176,7 +194,7 @@ bool PathControl::isStop()
                 return true;
             }
 	}
-        else 
+        else
 	{
             led_off();
             m_block_cnt = 0;
@@ -197,7 +215,7 @@ void PathControl::reset()
 	//reset di executionIndex, inserIndex
 	m_executionIndex=-1;	
 	m_insertIndex=0;			
-	//set status 
+	//set status
 	if(m_block_cnt>=MAX_BLOCK)		
 		m_path_status=PATH_BLOCKED;
 	else

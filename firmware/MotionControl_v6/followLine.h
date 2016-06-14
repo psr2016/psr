@@ -24,7 +24,6 @@ private:
     float m_accel_step;
     float m_vmax;
     float m_decel;
-    float m_dt;
     float m_next_speed;
     float m_decel_distance;
     float m_direction;
@@ -33,6 +32,7 @@ private:
     bool m_two_step;
 };
 
+extern FollowLine follow_line;
 
 
 #endif
