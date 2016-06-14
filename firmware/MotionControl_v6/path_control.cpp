@@ -76,7 +76,19 @@ void PathControl::run()
 //add specifico per ogni tipo di comando
 void PathControl::addForward(int distance){}
 
-void PathControl::addGoToPoint(int x,int y){}
+void PathControl::addFollowLine(int x,int y)
+{
+	if(m_insertIndex<PATH_SIZE)
+	{
+		operation[m_insertIndex].typeOfCommand=FOLLOW_LINE;
+		operation[m_insertIndex].xCoord=x;
+		operation[m_insertIndex].yCoord=y;
+		operation[m_insertIndex].distance=0;
+		operation[m_insertIndex].theta=0;
+		operation[m_insertIndex].radius=0;
+		m_insertIndex++;
+	}
+}
 
 void PathControl::addFollowline(int x,int y)
 {
@@ -135,6 +147,9 @@ void PathControl::addCircularRotation(float theta, float radius)
 }
 void PathControl::setCommand(int type)
 {
+    float x_start=0.0;
+    float y_start=0.0;
+
     switch(type)
 	{
         case ABSOLUTE_ROTATION:
@@ -164,23 +179,25 @@ void PathControl::setCommand(int type)
             current_command->on();
             m_path_status=PATH_BUSY;
             break;
+
         case FOLLOW_LINE:
             //comando di follow line richiamare il metodo
-
+            //set_qualcosa.......................
+            x_start=m_kinematics.pose().x();
+            y_start=m_kinematics.pose().y();
             follow_line.set_target(operation[m_executionIndex].xCoord,
                                    operation[m_executionIndex].yCoord,
-                                   m_kinematics.pose().x(),
-                                   m_kinematics.pose().y());
-
+                                   x_start,y_start);
             current_command=&follow_line;
             current_command->on();			
             m_path_status=PATH_BUSY;			
             break;
+
         default:
             m_path_status=PATH_FINISH;
             break;
 	}
-	
+
 }
 
 bool PathControl::isStop()
