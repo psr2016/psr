@@ -32,8 +32,9 @@ void Pose::global_to_local(Point & global_point, Point & robot_local)
 void Line::set_line(Point & target, Point & pointForLine)
 {
     a = target.y() - pointForLine.y();
-    b = target.x() - pointForLine.x();
+    b = pointForLine.x() - target.x();
     c = (target.x() * pointForLine.y()) - (pointForLine.x() * target.y());
+    dTheta = atan2(-a,b);
 }
 
 float Line::getDistance(float x, float y)
@@ -45,5 +46,5 @@ float Line::getDistance(float x, float y)
 
 float Line::getDTheta()
 {
-    return atan2(-a,b);
+    return dTheta;
 }

@@ -51,12 +51,12 @@ class Pose : public Point {
 
 class Line {
  public:
- Line() {};   
+ Line() {};
     float getDistance(float x, float y);
     float getDTheta();
     void set_line(Point & target, Point & pointForLine);
  private:
-    float a, b ,c;
+    float a, b ,c, dTheta;
 };
 
 #endif
