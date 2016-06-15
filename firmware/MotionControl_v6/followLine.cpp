@@ -7,8 +7,8 @@
 
 FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl)
       : PositionControl(kinem, speed_ctrl),
-	kd(10.0),
-	kh(100.0),
+	kd(1.0),
+	kh(75.0),
 	m_accel(600),
 	m_vmax(600),
 	m_decel(600),
@@ -66,8 +66,8 @@ void FollowLine::run()
     }
 
     //TODO Controllare tutti i segni;
-    float v_target_left = evaluateAngularSpeed();
-    float v_target_right = -v_target_left;
+    float v_target_right = evaluateAngularSpeed();
+    float v_target_left = -v_target_right;
 
     if ( !m_two_step || fabs(v_target_left) < 10 ) { //TODO settare un parametro opportuno, verificare sul campo
 
@@ -84,7 +84,7 @@ float FollowLine::evaluateAngularSpeed()
 {
     float distance = m_line.getDistance(m_kinematics.pose().x(), m_kinematics.pose().y());
     if (m_direction > 0)
-        return (-kd * distance) + ( kh * normalizeAngle(m_line.getDTheta() - m_kinematics.pose().theta()));
+        return (kd * distance) + ( kh * normalizeAngle(m_line.getDTheta() - m_kinematics.pose().theta()));
     else
         return (-kd * distance) + ( kh * normalizeAngle(m_line.getDTheta() - (m_kinematics.pose().theta() + PI)));
         //TODO controllare se e' sufficiente aggiungere PI

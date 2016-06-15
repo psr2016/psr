@@ -34,7 +34,7 @@ void Line::set_line(Point & target, Point & pointForLine)
     a = target.y() - pointForLine.y();
     b = pointForLine.x() - target.x();
     c = (target.x() * pointForLine.y()) - (pointForLine.x() * target.y());
-    dTheta = atan2(-a,b);
+    dTheta = atan2(a,-b);
 }
 
 float Line::getDistance(float x, float y)
