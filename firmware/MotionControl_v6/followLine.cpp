@@ -9,6 +9,7 @@ FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl)
       : PositionControl(kinem, speed_ctrl),
 	kd(1.0),
 	kh(75.0),
+	ks(100.0),
 	m_accel(600),
 	m_vmax(600),
 	m_decel(600),
@@ -82,18 +83,26 @@ void FollowLine::run()
 
 float FollowLine::evaluateAngularSpeed()
 {
-    float distance = m_line.getDistance(m_kinematics.pose().x(), m_kinematics.pose().y());
+    float distanceFromLine = m_line.getDistance(m_kinematics.pose().x(), m_kinematics.pose().y());
+    float distanceFromTarget = m_target.getDistance(m_kinematics.pose().x(), m_kinematics.pose().y());
+    
+    if ( distanceFromTarget < 70 ) {
+	distanceFromTarget = distanceFromTarget / ks;
+    } else {
+	distanceFromTarget = 1;
+    }
+      
     if (m_direction > 0)
-        return (kd * distance) + ( kh * normalizeAngle(m_line.getDTheta() - m_kinematics.pose().theta()));
+        return (kd * distanceFromLine) + (distanceFromTarget * kh * normalizeAngle(m_line.getDTheta() - m_kinematics.pose().theta()));
     else
-        return (-kd * distance) + ( kh * normalizeAngle(m_line.getDTheta() - (m_kinematics.pose().theta() + PI)));
-        //TODO controllare se e' sufficiente aggiungere PI
-        //TODO verificare se bisogna normalizzare l'angolo
+        return (kd * distanceFromLine) + (distanceFromTarget * kh * normalizeAngle(m_line.getDTheta() - (m_kinematics.pose().theta() + PI)));
 }
 
 float FollowLine::evaluateDirection()
 {
-    if(fabs(m_line.getDTheta() - m_kinematics.pose().theta()) < PI/2)
+    float dTheta = atan2 ( (m_target.y() - m_kinematics.pose().y()), (m_target.x() - m_kinematics.pose().x()) );
+    
+    if(fabs(dTheta - m_kinematics.pose().theta()) < PI/2)
 	 return 1;
     else
 	 return -1;

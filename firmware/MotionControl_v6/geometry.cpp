@@ -41,7 +41,10 @@ float Line::getDistance(float x, float y)
 {
     float nm = (a * x + b * y + c );
     float dnm = sqrt(a*a + b*b);
-    return nm/dnm;
+    if ( dnm != 0 )
+      return nm/dnm;
+    
+    return 0;
 }
 
 float Line::getDTheta()

@@ -19,8 +19,8 @@ class FollowLine: public PositionControl {
 private:
     Line m_line;
     Point m_target;
-    float kd, kh;
-    float m_accel; //TODO da chiedere al prof se esistono gia' questi parametri da qualche altra parte
+    float kd, kh, ks;
+    float m_accel;
     float m_accel_step;
     float m_vmax;
     float m_decel;
