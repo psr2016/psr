@@ -55,7 +55,6 @@ void Kinematics::run()
     float delta_linear  = (f_delta_tick_L + f_delta_tick_R) / 2 ; //  spostamento  lineare interasse    [mm]	
     float delta_angular = (f_delta_tick_R - f_delta_tick_L) / m_wheelbase; //  variazione orientamento interasse [rad]
 
-
     m_linear_distance += delta_linear  ; //  spostamento lineare totale interasse [mm] durante ogni singolo comando
     m_angular_distance += delta_angular ; //  variazione totale orientamento interasse [rad] durante ogni singolo comando
 

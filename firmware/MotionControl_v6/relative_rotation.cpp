@@ -7,16 +7,14 @@
 #include <math.h>
 
 RelativeRotation::RelativeRotation(Kinematics & kinem, SpeedControlTask & speed_ctrl,
-float linear_accel, float linear_vmax, float linear_decel, float linear_vmin, float angular_target_range)
+                                   float linear_accel, float linear_vmax, float linear_decel, float linear_vmin,
+                                   float angular_target_range)
     : PositionControl(kinem, speed_ctrl),
-    m_linear_accel(0), m_linear_vmax(0), m_linear_decel(0), m_linear_vmin(linear_vmin),
+    m_linear_accel(linear_accel), m_linear_vmax(linear_vmax), m_linear_decel(linear_decel), m_linear_vmin(linear_vmin),
     m_angular_next_speed(0), m_angular_target(0), m_target_reached(true)
 {
     //conversione da gradi a radianti
     m_angular_target_range = angular_target_range*PI/180;
-    
-    m_angular_accel_step = m_angular_accel * m_real_time_period;
-    m_angular_decel_distance = (m_angular_vmax * m_angular_vmax) / (2 * m_angular_decel);
 }
 
 void RelativeRotation::set_rotation_target(float angular_target)
@@ -26,6 +24,9 @@ void RelativeRotation::set_rotation_target(float angular_target)
     m_angular_accel = 2*m_linear_accel / wheelbase; //linear_accel = accelerazione singola ruota
     m_angular_decel = 2*m_linear_decel / wheelbase; //linear_decel = decelerazione singola ruota
     m_angular_vmax = 2*m_linear_vmax / wheelbase; //linear_vmax = velocità massima singola ruota
+
+    m_angular_accel_step = m_angular_accel * m_real_time_period;
+    m_angular_decel_distance = (m_angular_vmax * m_angular_vmax) / (2 * m_angular_decel);
 
     //conversione da gradi a radianti
     m_angular_target = angular_target*PI/180;

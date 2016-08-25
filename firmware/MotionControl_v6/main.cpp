@@ -19,7 +19,7 @@
 #include "absolute_rotation.h"
 #include "circ_rotation.h"
 #include "path_control.h"
-#include "followLine.h"
+#include "follow_line.h"
 
 void initialize_peripherals()
 {
@@ -63,8 +63,8 @@ CanSpeedSender  can_speed_sender(speed_control);
 RelativeRotation relative_rotation(kinematics, speed_control, 600, 600, 600, 20, 0.5);
 AbsoluteRotation absolute_rotation(kinematics, speed_control, 600, 600, 600, 20, 0.5);
 CircularRotation circular_rotation(kinematics, speed_control, 600, 600, 600, 20, 0.5);
+FollowLine follow_line(kinematics, speed_control, 600, 600, 600, 20);
 PathControl path_control(kinematics, speed_control);
-FollowLine follow_line(kinematics, speed_control);
 
 int main()
 {

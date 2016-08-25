@@ -59,4 +59,7 @@ class Line {
     float a, b ,c, dTheta;
 };
 
+float normalize_angle(float a);
+float hypot(float a, float b);
+
 #endif

@@ -43,11 +43,26 @@ float Line::getDistance(float x, float y)
     float dnm = sqrt(a*a + b*b);
     if ( dnm != 0 )
       return nm/dnm;
-    
+
     return 0;
 }
 
 float Line::getDTheta()
 {
     return dTheta;
+}
+
+
+float normalize_angle(float a)
+{
+    if (a > PI)
+        a = a - TWO_PI;
+    if (a < -PI)
+        a = a + TWO_PI;
+    return a;
+}
+
+float hypot(float a, float b)
+{
+    return sqrt(a*a + b*b);
 }

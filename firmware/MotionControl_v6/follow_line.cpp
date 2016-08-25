@@ -2,17 +2,18 @@
  * followLine.cpp
  */
 
-#include "followLine.h"
+#include "follow_line.h"
 #include <math.h>
 
-FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl)
+FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl,
+                       float linear_accel, float linear_vmax, float linear_decel, float linear_vmin)
       : PositionControl(kinem, speed_ctrl),
 	kd(1.0),
 	kh(75.0),
 	ks(100.0),
-	m_accel(600),
-	m_vmax(600),
-	m_decel(600),
+	m_accel(linear_accel),
+	m_vmax(linear_vmax),
+	m_decel(linear_decel),
 	m_next_speed(0),
 	m_tolerance(30),
 	m_target_reached(false),
@@ -21,6 +22,8 @@ FollowLine::FollowLine(Kinematics & kinem, SpeedControlTask & speed_ctrl)
     m_accel_step = m_accel * m_real_time_period;
     m_decel_distance = (m_vmax * m_vmax) / (2 * m_decel);
 }
+
+//#include <iostream>
 
 void FollowLine::set_target(float xT, float yT, float xS, float yS)
 {
@@ -70,6 +73,8 @@ void FollowLine::run()
     float v_target_right = evaluateAngularSpeed();
     float v_target_left = -v_target_right;
 
+    //std::cout << "[FollowLine]" << v_target_left << "," << v_target_right << "," << m_line.getDTheta() << "," << m_kinematics.pose().theta() << std::endl;
+
     if ( !m_two_step || fabs(v_target_left) < 10 ) { //TODO settare un parametro opportuno, verificare sul campo
 
       float v_target = evaluateLinearSpeed();
@@ -85,13 +90,13 @@ float FollowLine::evaluateAngularSpeed()
 {
     float distanceFromLine = m_line.getDistance(m_kinematics.pose().x(), m_kinematics.pose().y());
     float distanceFromTarget = m_target.getDistance(m_kinematics.pose().x(), m_kinematics.pose().y());
-    
+
     if ( distanceFromTarget < 70 ) {
 	distanceFromTarget = distanceFromTarget / ks;
     } else {
 	distanceFromTarget = 1;
     }
-      
+
     if (m_direction > 0)
         return (kd * distanceFromLine) + (distanceFromTarget * kh * normalizeAngle(m_line.getDTheta() - m_kinematics.pose().theta()));
     else
@@ -101,7 +106,7 @@ float FollowLine::evaluateAngularSpeed()
 float FollowLine::evaluateDirection()
 {
     float dTheta = atan2 ( (m_target.y() - m_kinematics.pose().y()), (m_target.x() - m_kinematics.pose().x()) );
-    
+
     if(fabs(dTheta - m_kinematics.pose().theta()) < PI/2)
 	 return 1;
     else

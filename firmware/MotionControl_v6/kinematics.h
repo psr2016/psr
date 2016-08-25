@@ -17,22 +17,22 @@ class Kinematics : public PeriodicTask {
         set_radius_left(radius_left);
         set_radius_right(radius_right);
     };
-    void set_radius_left(float radius_left);
-    void set_radius_right(float radius_right);
-    void set_wheelbase(float wheel_base) { m_wheelbase = wheel_base; };
-    void run();
-    float speed_left() { return m_speed_left; };
-    float speed_right() { return m_speed_right; };
+    virtual void set_radius_left(float radius_left);
+    virtual void set_radius_right(float radius_right);
+    virtual void set_wheelbase(float wheel_base) { m_wheelbase = wheel_base; };
+    virtual void run();
+    virtual float speed_left() { return m_speed_left; };
+    virtual float speed_right() { return m_speed_right; };
     Pose & pose() { return robot_pose;};
 
     //aggiunti da Massimiliano Portelli e Placido Russo
-    float angular_speed() { return m_angular_speed; };
-    float wheelbase() { return m_wheelbase; };
-    float angular_distance() { return m_angular_distance; };
-    float linear_speed() { return m_linear_speed; };
-    void set_angular_distance(float angular_distance) { m_angular_distance = angular_distance; };
+    virtual float angular_speed() { return m_angular_speed; };
+    virtual float wheelbase() { return m_wheelbase; };
+    virtual float angular_distance() { return m_angular_distance; };
+    virtual float linear_speed() { return m_linear_speed; };
+    virtual void set_angular_distance(float angular_distance) { m_angular_distance = angular_distance; };
 
- private:
+ protected:
     float m_radius_left, m_radius_right;
     float m_wheel_factor_left, m_wheel_factor_right;
     float m_wheelbase;

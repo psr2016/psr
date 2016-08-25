@@ -1,15 +1,12 @@
 
 #include "defines.h"
 
-#include <p33FJ128MC802.h>
-
 
 #include "path_control.h"
 #include "absolute_rotation.h"
 #include "relative_rotation.h"
 #include "circ_rotation.h"
-#include "followLine.h"
-#include "gpio.h"
+#include "follow_line.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
@@ -38,7 +35,6 @@ void PathControl::run()
 		{
 			if(isStop())//controllo se ci sono le ruote bloccate
 			{
-                            led_on();
                             reset();//then ruote bloccate passo al comando successivo
 			}
 			else
@@ -200,24 +196,30 @@ void PathControl::setCommand(int type)
 
 }
 
+//#include <iostream>
+
 bool PathControl::isStop()
 {
-	if(fabs(m_kinematics.speed_left()-m_speed_control.get_target_left())>DELTA ||
-		fabs(m_kinematics.speed_right()-m_speed_control.get_target_right())>DELTA)
-	
-	{
-            m_block_cnt++;
-            if(m_block_cnt>=MAX_BLOCK) {
-                return true;
-            }
-	}
-        else
-	{
-            led_off();
-            m_block_cnt = 0;
+    float CL = m_kinematics.speed_left();
+    float CR = m_kinematics.speed_right();
+    float TL = m_speed_control.get_target_left();
+    float TR = m_speed_control.get_target_right();
+
+    if(fabs(CL - TL) > DELTA || fabs(CR - TR) > DELTA) {
+        m_block_cnt++;
+        if(m_block_cnt>=MAX_BLOCK) {
+            return true;
         }
-	return false;
+    }
+    else {
+        m_block_cnt = 0;
+    }
+
+    //std::cout << CL << "," << TL << "," << fabs(CL-TL) << "," << m_block_cnt << std::endl;
+
+    return false;
 }
+
 
 void PathControl::reset()
 {
