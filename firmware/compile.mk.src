@@ -1,7 +1,0 @@
-# set the following variables to the paths of your XC8 and XC16 compilers
-
-PK2DIR = /usr/local
-XC8DIR = /opt/microchip/xc8/v1.10
-XC16DIR = /opt/microchip/xc16/v1.10
-
-# then copy compile.mk.src to compile.mk

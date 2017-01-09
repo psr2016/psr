@@ -7,6 +7,7 @@
 #include "relative_rotation.h"
 #include "circ_rotation.h"
 #include "follow_line.h"
+#include "goto_point.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
@@ -141,6 +142,21 @@ void PathControl::addCircularRotation(float theta, float radius)
 		m_insertIndex++;
 	}
 }
+
+void PathControl::addGoTo_Point(int x,int y)
+{
+	if(m_insertIndex<PATH_SIZE)
+	{
+		operation[m_insertIndex].typeOfCommand=GOTO_POINT;
+		operation[m_insertIndex].xCoord=x;
+		operation[m_insertIndex].yCoord=y;
+		operation[m_insertIndex].distance=0;
+		operation[m_insertIndex].theta=0;
+		operation[m_insertIndex].radius=0;
+		m_insertIndex++;
+	}
+}
+
 void PathControl::setCommand(int type)
 {
     float x_start=0.0;
@@ -188,7 +204,15 @@ void PathControl::setCommand(int type)
             current_command->on();			
             m_path_status=PATH_BUSY;			
             break;
-
+            
+        case GOTO_POINT:
+            //comando per andare in un punto di coordinate x,y
+            goto_point.set_target(operation[m_executionIndex].xCoord,
+                                   operation[m_executionIndex].yCoord);
+            current_command = &goto_point;
+            current_command->on();
+            m_path_status=PATH_BUSY;
+            break;
         default:
             m_path_status=PATH_FINISH;
             break;

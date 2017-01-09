@@ -172,6 +172,12 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
             path_control.addFollowline(p->x, p->y);
         }
         break;
+    case MOTION_COMMAND_FORWARD_TO_POINT:
+        {
+            t_command_forward_to_point * p =  (t_command_forward_to_point *)m;
+            path_control.addGoTo_Point(p->x, p->y);
+        }
+        break;
 
     }
 }

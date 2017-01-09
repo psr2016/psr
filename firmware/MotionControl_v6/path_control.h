@@ -19,6 +19,7 @@
 #define RELATIVE_ROTATION 2
 #define CIRCULAR_ROTATION 3
 #define FOLLOW_LINE 4
+#define GOTO_POINT 5
 
 struct Command
 {
@@ -40,7 +41,8 @@ public:
 	void addAbsRotation(float theta);
 	void addRelRotation(float theta);
 	void addCircularRotation(float theta, float radius);
-        void addFollowline(int x,int y);
+    void addFollowline(int x,int y);
+    void addGoTo_Point(int x,int y);
 	void setCommand(int type);
 	bool isStop();
 	void reset();

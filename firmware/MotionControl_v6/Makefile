@@ -21,6 +21,7 @@ SOURCEFILES += absolute_rotation.cpp
 SOURCEFILES += circ_rotation.cpp
 SOURCEFILES += path_control.cpp
 SOURCEFILES += main.cpp
+SOURCEFILES += goto_point.cpp
 
 
 # Librerie utilizzate
