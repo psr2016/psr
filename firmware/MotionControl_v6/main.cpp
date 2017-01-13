@@ -65,7 +65,7 @@ RelativeRotation relative_rotation(kinematics, speed_control, 600, 600, 600, 20,
 AbsoluteRotation absolute_rotation(kinematics, speed_control, 600, 600, 600, 20, 0.5);
 CircularRotation circular_rotation(kinematics, speed_control, 600, 600, 600, 20, 0.5);
 FollowLine follow_line(kinematics, speed_control, 600, 600, 600, 20);
-GoTo_Point goto_point(kinematics, speed_control, 600, 600, 600, 20,100,100);
+GoTo_Point goto_point(kinematics, speed_control, 600, 600, 600, 20);
 PathControl path_control(kinematics, speed_control);
 
 int main()
