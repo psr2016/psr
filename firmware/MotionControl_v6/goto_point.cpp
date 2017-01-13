@@ -57,7 +57,7 @@ GoTo_Point::GoTo_Point(Kinematics & kinem, SpeedControlTask & speed_ctrl,
     {
         m_alfa = normalizeAngle( atan2(delta_y,delta_x) - m_kinematics.pose().theta() ); 
     }
-
+    
     void GoTo_Point::setDistance(float delta_x,float delta_y)
     {
         m_rho  = sqrt(pow(delta_x,2)+pow(delta_y,2));
