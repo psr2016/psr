@@ -17,9 +17,7 @@ class GoTo_Point : public PositionControl {
     float linear_accel, 
     float linear_vmax, 
     float linear_decel, 
-    float linear_vmin,
-    float x_target,
-    float y_target);
+    float linear_vmin);
 
     bool target_reached() { return m_target_reached; };
     void run();
