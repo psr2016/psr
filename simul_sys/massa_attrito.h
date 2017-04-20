@@ -12,6 +12,7 @@ class MassaAttrito : public DynamicSystem {
 public:
   MassaAttrito(float m, float b, float delta_t);
   float evaluate(float input);
+  float get_position() { return p_k;};
 
 private:
   float m_massa, m_b;  // costanti del sistema
