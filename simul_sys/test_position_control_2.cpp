@@ -21,9 +21,9 @@ int main(int argc, char **argv)
     float v_target, p_target;
     float v_real = 0, p_real = 0;
 
-    p_target = 10; // 10 meters of distance
+    p_target = 4; // 4 meters of distance
 
-    PID_Saturation speed_pid(6.0, 4.0, 0, 30, 0.01);
+    PID_Saturation speed_pid(6.0, 6.0, 0, 30, 0.01);
     // saturation at 30N
 
     PositionController position_controller(0.8, 2, 0.8, 0.01);

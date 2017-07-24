@@ -22,13 +22,18 @@ SOURCEFILES += circ_rotation.cpp
 SOURCEFILES += path_control.cpp
 SOURCEFILES += main.cpp
 SOURCEFILES += goto_point.cpp
-
+#-----------------------------------
+SOURCEFILES += Controllore.cpp
+#-----------------------------------
 
 # Librerie utilizzate
 include ../libs/can_stdio_and_rtsp/can_stdio_and_rtsp_endpoint.mk
 include ../libs/ecan_lib/ecan_lib.mk
 include ../libs/controllib/controllib.mk
 include ../libs/c++support/c++support.mk
+#------------------------------------------------------------------
+include ../libs/peripheralslib/peripheralslib.mk
+#------------------------------------------------------------------
 
 # Carica regole di compilazione. Deve essere incluso dopo aver riempito l'elenco SOURCEFILES
 include ../rules.mk

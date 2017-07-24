@@ -38,7 +38,7 @@ float PositionController::evaluate(float target, float current_pos, float curren
         }
         else {
             m_next_speed = expected_speed;
-        }
+	}
     }
     else {
         // Fase 1, fase 2

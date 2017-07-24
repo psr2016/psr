@@ -227,6 +227,26 @@ void CanSpeedSender::run()
 }
 
 
+// ----------------------------------------------------------------------------------------------------
+
+CanGyroSender::CanGyroSender(Controllore & ctrl)
+    : PeriodicTask("gyro_sender", GYRO_SENDER_PERIOD, TIME_UNIT, GYRO_SENDER_JITTER),
+      m_gyro_controller(ctrl)
+{
+}
+
+void CanGyroSender::run()
+{
+    t_can_gyro_raw_data g;
+    short x, y, z;
+    m_gyro_controller.ReadRawData(x, y, z);
+    g.x = x;
+    g.y = y;
+    g.z = z;
+    ecan_send(GYRO_RAW_DATA_CAN_ID, (unsigned char *)&g, 8, 0);
+}
+
+
 // --------------------------------------------------------------------------------
 
 static void update_motion_command(const uint8_t *data, unsigned int len, void *user_ptr)

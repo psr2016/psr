@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     PID_Saturation speed_pid(6.0, 3.0, 0, 30, 0.01);
     // saturation at 30N
 
-    PID_Saturation position_pid(0.5, 0, 0, 2, 0.01);
+    PID_Saturation position_pid(0.8, 0, 0, 2, 0.01);
     // saturation at 2 m/s
 
     std::ofstream output_file("data.txt");
@@ -43,7 +43,8 @@ int main(int argc, char **argv)
       v_real = m.evaluate(speed_pid_output);
       p_real = m.get_position();
 
-      output_file << (i*0.01) << " " << p_real << std::endl;
+      output_file << (i*0.01) << " " << p_real << " " << v_real <<
+	" " << v_target << std::endl;
 
     }
 

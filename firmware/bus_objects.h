@@ -41,6 +41,18 @@ typedef struct {
     short right_pwm;
 }  __attribute__((packed)) t_can_robot_wheels_velocity;
 
+
+// -------------- GYRO RAW DATA ---------------------
+#define GYRO_RAW_DATA_CAN_ID   0x3EF
+
+typedef struct {
+    short x;
+    short y;
+    short z;
+    short padding;
+}  __attribute__((packed)) t_can_gyro_raw_data;
+
+
 // -------------- OBSTACLE_AVOIDANCE ---------------------
 #define OBSTACLE_AVOIDANCE_CAN_ID   0x3D0
 

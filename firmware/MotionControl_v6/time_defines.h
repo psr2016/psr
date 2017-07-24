@@ -24,6 +24,9 @@
 #define POSITION_CONTROL_PERIOD      8
 #define POSITION_CONTROL_JITTER      3
 
+#define GYRO_SENDER_PERIOD      8
+#define GYRO_SENDER_JITTER      4
+
 #define PATH_CONTROL_PERIOD      8
 #define PATH_CONTROL_JITTER      3
 // tasks at 250ms

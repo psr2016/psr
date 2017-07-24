@@ -39,11 +39,6 @@ void init_clock()
 
 /* Routines for Internal Clock */
 
-// Select Internal FRC at POR
-_FOSCSEL(FNOSC_FRC);
-// Enable Clock Switching and Configure
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON);
-
 void init_clock()
 {
     OSCTUNbits.TUN = 0;

@@ -16,6 +16,7 @@
 
 #include "speed_control.h"
 #include "kinematics.h"
+#include "Controllore.h"
 
 #include "ecan_lib.h"
 #include "bus_objects.h"
@@ -46,6 +47,14 @@ class CanSpeedSender : public PeriodicTask {
     void run();
  private:
     SpeedControlTask & m_speed_controller;
+};
+
+class CanGyroSender : public PeriodicTask {
+ public:
+    CanGyroSender(Controllore & gyro_ctrl);
+    void run();
+ private:
+    Controllore & m_gyro_controller;
 };
 
 // ---------------------------------------------------------------------------------
