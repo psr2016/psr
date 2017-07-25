@@ -86,10 +86,10 @@ FollowLine follow_line(kinematics, speed_control, 600, 600, 600, 20);
 GoTo_Point goto_point(kinematics, speed_control, 600, 600, 600, 20);
 PathControl path_control(kinematics, speed_control);
 //----------------------------------------------------------------------------------------------
-I2C i2c_comunication_imu(I2C_FREQ_100KHZ);                             //Istanza oggetto i2c
-Controllore controller(i2c_comunication_imu, 1, 0, 10);    //Istanza oggetto Controllore
+I2C i2c_comunication_imu(I2C_FREQ_100KHZ);                                //Istanza oggetto i2c
+Controllore gyro_controller(i2c_comunication_imu, speed_control, 1, 0, 10);    //Istanza oggetto Controllore
 //----------------------------------------------------------------------------------------------
-CanGyroSender gyro_sender(controller);
+CanGyroSender gyro_sender(gyro_controller);
 
 int main()
 {
@@ -111,8 +111,8 @@ int main()
 
     //----------------------------------------------------------------------------
     i2c_comunication_imu.open();      //Avvio dell'i2c
-    controller.InitGyro();            //Inizializzazione IMU
-    controller.on();                  //Avvio del task periodico Controllore
+    gyro_controller.InitGyro();            //Inizializzazione IMU
+    //controller.on();                  //Avvio del task periodico Controllore
     // //----------------------------------------------------------------------------
     gyro_sender.on();
 

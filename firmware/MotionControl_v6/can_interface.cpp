@@ -8,6 +8,7 @@
 #include "canstdio_endpoint.h"
 #include "path_control.h"
 #include "absolute_rotation.h"
+#include "Controllore.h"
 #include "gpio.h"
 
 extern CanPoseSender  can_pose_sender;
@@ -94,6 +95,7 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
 
     case MOTION_COMMAND_STOP_AND_FREE:
         m_speed_controller.off();
+        gyro_controller.off();
         //path_control.abort_and_getNext();
         // if (obstacle_detected == false)
         // {
@@ -166,12 +168,14 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
             path_control.addCircularRotation(p->degrees/10.0, p->x);
         }
         break;
+
     case MOTION_COMMAND_LINE_TO_POINT:
         {
             t_command_line_to_point * p =  (t_command_line_to_point *)m;
             path_control.addFollowline(p->x, p->y);
         }
         break;
+
     case MOTION_COMMAND_FORWARD_TO_POINT:
         {
             t_command_forward_to_point * p =  (t_command_forward_to_point *)m;
@@ -179,7 +183,24 @@ void CanCommandReceiver::process_command(const t_can_motion_command* m)
         }
         break;
 
+    case MOTION_COMMAND_GYRO_CONTROLLER:
+        {
+            float kp, ki, v_lin;
+            t_command_gyro_controller * p = (t_command_gyro_controller *)m;
+				
+            kp = M_E(p->kp_m, p->kp_e);
+            ki = M_E(p->ki_m, p->ki_e);
+            v_lin = M_E(p->v_m, p->v_e);
+
+            gyro_controller.set_KP(kp);
+            gyro_controller.set_KI(ki);
+            gyro_controller.set_V(v_lin);
+            gyro_controller.on();
+        }
+        break;
+
     }
+
 }
 
 // ----------------------------------------------------------------------------------------------------

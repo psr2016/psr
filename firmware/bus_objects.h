@@ -249,6 +249,8 @@ typedef struct {
 #define MOTION_COMMAND_STOP_SAMPLE             0x42
 #define MOTION_COMMAND_SEND_SAMPLE             0x43
 
+#define MOTION_COMMAND_GYRO_CONTROLLER         0x50
+
 #define MOTION_COMMAND_SET_SPEED_NO_LOCK       0x7f
 #define MOTION_COMMAND_SET_PMW                 0x80
 #define MOTION_COMMAND_SET_SPEED               0x81
@@ -292,6 +294,19 @@ typedef struct {
     char kd_e;
     unsigned char _padding;
 } __attribute__((packed)) t_command_speed_pid;
+
+// --------------------------------------------------------------------------
+
+typedef struct {
+    unsigned char _cmd;
+    char kp_m;
+    char kp_e;
+    char ki_m;
+    char ki_e;
+    char v_m;
+    char v_e;
+    unsigned char _padding;
+} __attribute__((packed)) t_command_gyro_controller;
 
 // --------------------------------------------------------------------------
 
