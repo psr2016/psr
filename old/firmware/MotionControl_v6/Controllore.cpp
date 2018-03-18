@@ -89,6 +89,8 @@ void Controllore::InitGyro()
        Somma_X = Somma_X + (omega_x16*FULLSCALE_245dps);
        Somma_Y = Somma_Y + (omega_y16*FULLSCALE_245dps);
        Somma_Z = Somma_Z + (omega_z16*FULLSCALE_245dps);
+
+       __delay_ms(1);
     }
 
     OFFSET_X = Somma_X/100;
@@ -109,7 +111,7 @@ void Controllore::ReadGyro()
     IMU_comunication.read_buffer(0xD6, 0x2C | 0x80, &omega_z8[0], 2);   //data_len in byte
   	
     //Composizione valori a 8 bit in una da 16 bit (Velocità angolare 16 bit)
-    m_omega_x16 = omega_x8[0] | (omega_x8[1]<<8);
+    m_omega_x16 = - (omega_x8[0] | (omega_x8[1]<<8));
     m_omega_y16 = omega_y8[0] | (omega_y8[1]<<8);
     m_omega_z16 = omega_z8[0] | (omega_z8[1]<<8);
 

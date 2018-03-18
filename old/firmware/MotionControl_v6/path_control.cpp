@@ -204,7 +204,7 @@ void PathControl::setCommand(int type)
             current_command->on();			
             m_path_status=PATH_BUSY;			
             break;
-            
+
         case GOTO_POINT:
             //comando per andare in un punto di coordinate x,y
             goto_point.set_target(operation[m_executionIndex].xCoord,
@@ -224,6 +224,8 @@ void PathControl::setCommand(int type)
 
 bool PathControl::isStop()
 {
+    return false;
+
     float CL = m_kinematics.speed_left();
     float CR = m_kinematics.speed_right();
     float TL = m_speed_control.get_target_left();

@@ -87,23 +87,23 @@ GoTo_Point goto_point(kinematics, speed_control, 600, 600, 600, 20);
 PathControl path_control(kinematics, speed_control);
 //----------------------------------------------------------------------------------------------
 I2C i2c_comunication_imu(I2C_FREQ_100KHZ);                                //Istanza oggetto i2c
-Controllore gyro_controller(i2c_comunication_imu, speed_control, 1, 0, 10);    //Istanza oggetto Controllore
+Controllore gyro_controller(i2c_comunication_imu, speed_control, 1, 0, 500);    //Istanza oggetto Controllore
 //----------------------------------------------------------------------------------------------
 CanGyroSender gyro_sender(gyro_controller);
+
+
+/*
+ * Task benchmarks:
+ * KINEMATICS: 70 microsecs
+ * SPEED CONTROL: 50 microsecs
+ * CAN POSE SENDER: 140 microsecs
+ * Overall "run_all_tasks()" time measured with "goto_point" command active ~= 550 microsecs
+ */
 
 int main()
 {
     initialize_peripherals();
     flash_at_boot();
-
-    TRISBbits.TRISB8 = 0;
-    TRISBbits.TRISB9 = 0;
-
-    ODCBbits.ODCB8 = 0;
-    ODCBbits.ODCB9 = 0;
-
-    LATBbits.LATB8 = 1;
-    LATBbits.LATB9 = 1;
 
     kinematics.on();
     can_pose_sender.on();

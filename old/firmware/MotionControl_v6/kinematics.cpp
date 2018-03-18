@@ -79,4 +79,5 @@ void Kinematics::run()
         m_rotation_radius_infinity = false;
         m_rotation_radius = (m_wheelbase / 2.0) * (m_speed_right + m_speed_left) / (m_speed_right - m_speed_left);
     }
+
 }
