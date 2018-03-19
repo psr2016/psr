@@ -25,6 +25,10 @@ class Robot:
     def get_pos(self):
         return self.__pos
 
+    def set_pos(self, pos):
+        self.__pos = pos
+
+
 
 
 
