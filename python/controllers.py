@@ -51,3 +51,25 @@ class PI_Controller:
     def get_error(self):
         return self.__error
 
+
+class PI_Sat_Controller:
+
+    def __init__(self, kp, ki, sat):
+        self.__kp = kp
+        self.__ki = ki
+        self.__intergral_term = 0
+        self.__saturation = sat
+
+    def evaluate(self, target, measure, delta_t):
+        self.__error = target - measure
+        self.__intergral_term = self.__intergral_term + self.__error * delta_t
+        output = self.__error * self.__kp + self.__intergral_term * self.__ki
+        if output > self.__saturation:
+            output = self.__saturation
+        if output < -self.__saturation:
+            output = -self.__saturation
+        return output
+
+    def get_error(self):
+        return self.__error
+
