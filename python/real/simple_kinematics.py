@@ -6,6 +6,7 @@
 # attributes:
 #    speed = current speed in RPM
 #    position = current position in ticks
+#    position_degreees = current position in degrees
 #
 class Kinematics:
 
@@ -27,4 +28,6 @@ class Kinematics:
 
         # update position
         self.position = p
+        self.position_degrees = self.position * 360.0 / 84000.0
+
 
