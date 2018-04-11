@@ -86,7 +86,7 @@ class PI_Sat_AntiW_Controller:
     def evaluate(self, target, measure, delta_t):
         self.__error = target - measure
 
-        if self.__saturation_flag:
+        if not(self.__saturation_flag):
             self.__intergral_term = self.__intergral_term + self.__error * delta_t
 
         output = self.__error * self.__kp + self.__intergral_term * self.__ki
