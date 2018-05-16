@@ -39,7 +39,7 @@ class PositionControlTask(PeriodicTask):
 
         # do the control
         target_speed = self.__position_controller.evaluate(self.__target_pos,
-                                                            self.__kinematics.position_degrees,
+                                                 self.__kinematics.position_degrees,
                                                             current_speed,
                                                             self.cycletime)
 

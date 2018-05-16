@@ -2,6 +2,8 @@
 Elenco dei file presenti nella cartella
 =======================================
 
+* arm_control.py: controllo PID di un braccio robotico
+
 * arm_response.py: simulazione di braccio robotico
 
 * controllers.py: libreria con i vari tipi di controllori

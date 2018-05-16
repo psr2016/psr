@@ -52,6 +52,27 @@ class PI_Controller:
         return self.__error
 
 
+class PID_Controller:
+
+    def __init__(self, kp, ki, kd):
+        self.__kp = kp
+        self.__ki = ki
+        self.__kd = kd
+        self.__intergral_term = 0
+        self.__prev_error = 0
+
+    def evaluate(self, target, measure, delta_t):
+        self.__error = target - measure
+        derivative = (self.__error - self.__prev_error) / delta_t
+        self.__prev_error = self.__error
+        self.__intergral_term = self.__intergral_term + self.__error * delta_t
+        output = self.__error * self.__kp + self.__intergral_term * self.__ki + derivative * self.__kd
+        return output
+
+    def get_error(self):
+        return self.__error
+
+
 class PI_Sat_Controller:
 
     def __init__(self, kp, ki, sat):
