@@ -63,8 +63,10 @@ class PID_Controller:
 
     def evaluate(self, target, measure, delta_t):
         self.__error = target - measure
+
         derivative = (self.__error - self.__prev_error) / delta_t
         self.__prev_error = self.__error
+
         self.__intergral_term = self.__intergral_term + self.__error * delta_t
         output = self.__error * self.__kp + self.__intergral_term * self.__ki + derivative * self.__kd
         return output
